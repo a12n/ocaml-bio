@@ -55,6 +55,17 @@ include Seq.Make (Nt)
   (rev (of_string "atg")) (of_string "gta")
 *)
 
+(*$= count
+  (count Nt.A (of_string "")) 0
+  (count Nt.C (of_string "")) 0
+  (count Nt.G (of_string "")) 0
+  (count Nt.T (of_string "")) 0
+  (count Nt.A (of_string "gattaca")) 3
+  (count Nt.C (of_string "gattaca")) 1
+  (count Nt.G (of_string "gattaca")) 1
+  (count Nt.T (of_string "gattaca")) 2
+*)
+
 let comp = map Nt.comp
 
 (*$= comp
