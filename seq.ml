@@ -31,6 +31,7 @@ module Make (Elt : Elt_sig) : sig
   val length : t -> int
   val rev : t -> t
   val right : t -> int -> t
+  val sub : t -> start:int -> len:int -> t
 
   val count : Elt.t -> t -> int
 
@@ -74,6 +75,8 @@ end = struct
   let rev = String.rev
 
   let right = String.right
+
+  let sub seq ~start ~len = String.sub seq start len
 
 
   let count elt seq =
