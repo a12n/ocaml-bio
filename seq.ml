@@ -21,6 +21,8 @@ module Make (Elt : Elt_sig) : sig
   val to_array : t -> Elt.t array
   val to_list : t -> Elt.t list
   val to_string : t -> string
+
+  val get : t -> int -> Elt.t
 end = struct
   type t = string
 
@@ -41,4 +43,7 @@ end = struct
   let to_list = List.map Elt.of_char % String.to_list
 
   let to_string seq = seq
+
+
+  let get seq i = Elt.of_char (String.get seq i)
 end
