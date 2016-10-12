@@ -78,6 +78,20 @@ include Seq.Make (Nt)
   (count Nt.T (of_string "gattaca")) 2
 *)
 
+(*$= hamm_dist
+  (hamm_dist (of_string "") (of_string "")) 0
+  (hamm_dist (of_string "a") (of_string "a")) 0
+  (hamm_dist (of_string "a") (of_string "c")) 1
+  (hamm_dist (of_string "gattaca") (of_string "atgatga")) 6
+*)
+
+(*$T p_dist
+  Batteries.Float.approx_equal (p_dist (of_string "") (of_string "")) 0.0
+  Batteries.Float.approx_equal (p_dist (of_string "a") (of_string "a")) 0.0
+  Batteries.Float.approx_equal (p_dist (of_string "a") (of_string "c")) 1.0
+  Batteries.Float.approx_equal (p_dist (of_string "gattaca") (of_string "atgatga")) (6.0 /. 7.0)
+*)
+
 let comp = map Nt.comp
 
 (*$= comp
