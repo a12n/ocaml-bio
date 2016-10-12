@@ -203,4 +203,15 @@ module Ambig = struct
       | V -> (to_int A) lor (to_int C) lor (to_int G)
       | N -> (to_int A) lor (to_int C) lor (to_int G) lor (to_int T)
   end
+
+  include Seq.Make (Nt)
+
+  let comp = map Nt.comp
+
+  let gc_content dna =
+    assert (not (is_empty dna));
+    float_of_int (count Nt.G dna + count Nt.C dna + count Nt.S dna) /.
+    float_of_int (length dna)
+
+  let rev_comp = Batteries.(rev % comp)
 end

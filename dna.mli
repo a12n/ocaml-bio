@@ -20,4 +20,10 @@ module Ambig : sig
             | K | M | B | D | H | V | N | Gap
     include Nt_sig with type t = nt
   end
+
+  include module type of Seq.Make (Nt)
+
+  val comp : t -> t
+  val gc_content : t -> float
+  val rev_comp : t -> t
 end
