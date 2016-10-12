@@ -102,3 +102,105 @@ let rev_comp = Batteries.(rev % comp)
   (rev_comp (of_string "")) (of_string "")
   (rev_comp (of_string "gattaca")) (of_string "tgtaatc")
 *)
+
+module Ambig = struct
+  module Nt = struct
+    type nt = A | C | G | T | R | Y | S | W
+            | K | M | B | D | H | V | N | Gap
+    and t = nt
+
+    let comp = function
+      | A -> T
+      | C -> G
+      | G -> C
+      | T -> A
+      | R -> Y
+      | Y -> R
+      | S -> S
+      | W -> W
+      | K -> M
+      | M -> K
+      | B -> V
+      | D -> H
+      | H -> D
+      | V -> B
+      | N -> N
+      | Gap -> Gap
+
+    let n = 16
+
+    let of_char = function
+      | 'A' | 'a' -> A
+      | 'C' | 'c' -> C
+      | 'G' | 'g' -> G
+      | 'T' | 't' -> T
+      | 'R' | 'r' -> R
+      | 'Y' | 'y' -> Y
+      | 'S' | 's' -> S
+      | 'W' | 'w' -> W
+      | 'K' | 'k' -> K
+      | 'M' | 'm' -> M
+      | 'B' | 'b' -> B
+      | 'D' | 'd' -> D
+      | 'H' | 'h' -> H
+      | 'V' | 'v' -> V
+      | 'N' | 'n' -> N
+      | '-' | '.' -> Gap
+      | _ -> invalid_arg "Dna.Ambig.Nt.of_char"
+
+    let of_int = function
+      | 0b0000 -> Gap
+      | 0b0001 -> A
+      | 0b0010 -> C
+      | 0b0100 -> G
+      | 0b1000 -> T
+      | 0b0101 -> R             (* A or G *)
+      | 0b1010 -> Y             (* C or T *)
+      | 0b0110 -> S             (* G or C *)
+      | 0b1001 -> W             (* A or T *)
+      | 0b1100 -> K             (* G or T *)
+      | 0b0011 -> M             (* A or C *)
+      | 0b1110 -> B             (* C or G or T *)
+      | 0b1101 -> D             (* A or G or T *)
+      | 0b1011 -> H             (* A or C or T *)
+      | 0b0111 -> V             (* A or C or G *)
+      | 0b1111 -> N             (* A or C or G or T *)
+      | _ -> invalid_arg "Dna.Ambig.Nt.of_int"
+
+    let to_char = function
+      | A -> 'A'
+      | C -> 'C'
+      | G -> 'G'
+      | T -> 'T'
+      | R -> 'R'
+      | Y -> 'Y'
+      | S -> 'S'
+      | W -> 'W'
+      | K -> 'K'
+      | M -> 'M'
+      | B -> 'B'
+      | D -> 'D'
+      | H -> 'H'
+      | V -> 'V'
+      | N -> 'N'
+      | Gap -> '-'
+
+    let rec to_int = function
+      | Gap -> 0b0000
+      | A -> 0b0001
+      | C -> 0b0010
+      | G -> 0b0100
+      | T -> 0b1000
+      | R -> (to_int A) lor (to_int G)
+      | Y -> (to_int C) lor (to_int T)
+      | S -> (to_int G) lor (to_int C)
+      | W -> (to_int A) lor (to_int T)
+      | K -> (to_int G) lor (to_int T)
+      | M -> (to_int A) lor (to_int C)
+      | B -> (to_int C) lor (to_int G) lor (to_int T)
+      | D -> (to_int A) lor (to_int G) lor (to_int T)
+      | H -> (to_int A) lor (to_int C) lor (to_int T)
+      | V -> (to_int A) lor (to_int C) lor (to_int G)
+      | N -> (to_int A) lor (to_int C) lor (to_int G) lor (to_int T)
+  end
+end
