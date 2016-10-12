@@ -1,6 +1,7 @@
 OCAMLBUILD_FLAGS =
 OCAMLBUILD_FLAGS += -use-ocamlfind
 
+TARGET ?= byte
 
 .PHONY: clean lib test utop
 
@@ -11,7 +12,11 @@ clean:
 	ocamlbuild ${OCAMLBUILD_FLAGS} -clean
 	${RM} *_tests.ml qtest.targets.log
 
-test: lib
+test: dna_tests.${TARGET}
+	@for test in $^; do	\
+		echo ==== $$test ====;	\
+		./$$test;	\
+	done
 
 utop: lib
 	utop -I _build -safe-string
