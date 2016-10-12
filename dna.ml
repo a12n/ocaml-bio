@@ -128,6 +128,11 @@ let transcribe =
            | Nt.T -> Rna.Nt.U
   ) % enum
 
+(*$= transcribe
+  (transcribe (of_string "")) (Rna.of_string "")
+  (transcribe (of_string "gattaca")) (Rna.of_string "gauuaca")
+*)
+
 module Ambig = struct
   module Nt = struct
     type nt = A | C | G | T | R | Y | S | W
