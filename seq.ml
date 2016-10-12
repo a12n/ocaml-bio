@@ -26,6 +26,7 @@ module Make (Elt : Elt_sig) : sig
   val map : (Elt.t -> Elt.t) -> t -> t
 
   val get : t -> int -> Elt.t
+  val is_empty : t -> bool
   val length : t -> int
   val rev : t -> t
 
@@ -58,6 +59,8 @@ end = struct
 
 
   let get seq i = Elt.of_char (String.get seq i)
+
+  let is_empty = String.is_empty
 
   let length = String.length
 
