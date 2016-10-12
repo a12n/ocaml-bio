@@ -67,7 +67,11 @@ end = struct
   let rev = String.rev
 
 
-  let count elt =
+  let count elt seq =
     let c = Elt.to_char elt in
-    String.fold_left (fun n ck -> if ck = c then n + 1 else n) 0
+    let n = ref 0 in
+    for i = 0 to length seq - 1 do
+      if seq.[i] = c then incr n
+    done;
+    !n
 end
