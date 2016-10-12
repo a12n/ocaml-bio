@@ -27,8 +27,10 @@ module Make (Elt : Elt_sig) : sig
 
   val get : t -> int -> Elt.t
   val is_empty : t -> bool
+  val left : t -> int -> t
   val length : t -> int
   val rev : t -> t
+  val right : t -> int -> t
 
   val count : Elt.t -> t -> int
 
@@ -65,9 +67,13 @@ end = struct
 
   let is_empty = String.is_empty
 
+  let left = String.left
+
   let length = String.length
 
   let rev = String.rev
+
+  let right = String.right
 
 
   let count elt seq =
