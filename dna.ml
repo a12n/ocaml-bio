@@ -1,3 +1,5 @@
+open BatPervasives
+
 module type Nt_sig = sig
   include Seq.Elt_sig
   val comp : t -> t
@@ -111,7 +113,7 @@ let gc_content s =
   Batteries.Float.approx_equal (gc_content (of_string "gattaca")) (2.0 /. 7.0)
 *)
 
-let rev_comp = Batteries.(rev % comp)
+let rev_comp = rev % comp
 
 (*$= rev_comp
   (rev_comp (of_string "")) (of_string "")
@@ -229,5 +231,5 @@ module Ambig = struct
     | n -> float_of_int (count Nt.G s + count Nt.C s + count Nt.S s) /.
            float_of_int n
 
-  let rev_comp = Batteries.(rev % comp)
+  let rev_comp = rev % comp
 end
