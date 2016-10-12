@@ -73,6 +73,10 @@ let comp = map Nt.comp
   (comp (of_string "gattaca")) (of_string "ctaatgt")
 *)
 
+let gc_content dna =
+  float_of_int (count Nt.G dna + count Nt.C dna) /.
+  float_of_int (length dna)
+
 let rev_comp = Batteries.(rev % comp)
 
 (*$= rev_comp
