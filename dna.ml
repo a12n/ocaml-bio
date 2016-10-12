@@ -79,6 +79,7 @@ let comp = map Nt.comp
 *)
 
 let gc_content dna =
+  assert (not (is_empty dna));
   float_of_int (count Nt.G dna + count Nt.C dna) /.
   float_of_int (length dna)
 
