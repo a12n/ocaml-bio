@@ -1,7 +1,3 @@
-let pp_dna f dna =
-  Format.(pp_print_char f '"';
-          pp_print_string f (Bio.Dna.to_string dna);
-          pp_print_char f '"')
-;;
+let pp_dna f dna = Format.fprintf f "\"%s\"" (Bio.Dna.to_string dna);;
 
 #install_printer pp_dna;;
