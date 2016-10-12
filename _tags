@@ -1,0 +1,4 @@
+<*_tests.*>: package(oUnit)
+<*_tests.*>: package(qcheck)
+true: package(batteries)
+true: safe_string
