@@ -1,0 +1,7 @@
+syntax: glob
+
+*.byte
+*.native
+*_tests.ml
+_build/
+qtest.targets.log
