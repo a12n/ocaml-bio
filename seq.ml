@@ -81,11 +81,11 @@ end = struct
 
   let count elt seq =
     let c = Elt.to_char elt in
-    let n = ref 0 in
+    let ans = ref 0 in
     for i = 0 to length seq - 1 do
-      if seq.[i] = c then incr n
+      if seq.[i] = c then incr ans
     done;
-    !n
+    !ans
 
 
   let hamm_dist_aux s t n =
