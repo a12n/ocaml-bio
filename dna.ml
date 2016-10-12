@@ -43,3 +43,8 @@ include Seq.Make (Nt)
   (length (of_string "a")) 1
   (length (of_string "ac")) 2
 *)
+
+(*$= rev
+  (rev (of_string "")) (of_string "")
+  (rev (of_string "atg")) (of_string "gta")
+*)
