@@ -1,5 +1,10 @@
+module type Nt_sig = sig
+  include Seq.Elt_sig
+  val comp : t -> t
+end
+
 module Nt = struct
-  type t = A | C | G | T
+  type nt = A | C | G | T and t = nt
 
   let comp = function
     | A -> T

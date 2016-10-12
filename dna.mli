@@ -1,12 +1,11 @@
-module Nt : sig
-  type t = A | C | G | T
-
+module type Nt_sig = sig
+  include Seq.Elt_sig
   val comp : t -> t
-  val n : int
-  val of_char : char -> t
-  val of_int : int -> t
-  val to_char : t -> char
-  val to_int : t -> int
+end
+
+module Nt : sig
+  type nt = A | C | G | T
+  include Nt_sig with type t = nt
 end
 
 include module type of Seq.Make (Nt)
