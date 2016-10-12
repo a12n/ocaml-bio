@@ -24,6 +24,7 @@ module Make (Elt : Elt_sig) : sig
 
   val get : t -> int -> Elt.t
   val length : t -> int
+  val rev : t -> t
 end = struct
   type t = string
 
@@ -49,4 +50,6 @@ end = struct
   let get seq i = Elt.of_char (String.get seq i)
 
   let length = String.length
+
+  let rev = String.rev
 end
