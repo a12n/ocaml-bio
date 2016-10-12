@@ -13,6 +13,7 @@ include module type of Seq.Make (Nt)
 val comp : t -> t
 val gc_content : t -> float
 val rev_comp : t -> t
+val transcribe : t -> Rna.t
 
 module Ambig : sig
   module Nt : sig

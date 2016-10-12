@@ -120,6 +120,14 @@ let rev_comp = rev % comp
   (rev_comp (of_string "gattaca")) (of_string "tgtaatc")
 *)
 
+let transcribe =
+  Rna.of_enum % Batteries.Enum.map (
+    function Nt.A -> Rna.Nt.A
+           | Nt.C -> Rna.Nt.C
+           | Nt.G -> Rna.Nt.G
+           | Nt.T -> Rna.Nt.U
+  ) % enum
+
 module Ambig = struct
   module Nt = struct
     type nt = A | C | G | T | R | Y | S | W
