@@ -37,3 +37,9 @@ include Seq.Make (Nt)
   (get (of_string "gattaca") 1) Nt.A
   (get (of_string "gattaca") 6) Nt.A
 *)
+
+(*$= length
+  (length (of_string "")) 0
+  (length (of_string "a")) 1
+  (length (of_string "ac")) 2
+*)
