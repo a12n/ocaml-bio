@@ -22,6 +22,9 @@ module Make (Elt : Elt_sig) : sig
   val to_list : t -> Elt.t list
   val to_string : t -> string
 
+  val fold_left : ('a -> Elt.t -> 'a) -> 'a -> t -> 'a
+  val map : (Elt.t -> Elt.t) -> t -> t
+
   val get : t -> int -> Elt.t
   val length : t -> int
   val rev : t -> t
@@ -45,6 +48,11 @@ end = struct
   let to_list = List.map Elt.of_char % String.to_list
 
   let to_string seq = seq
+
+
+  let fold_left f = String.fold_left (fun ans c -> f ans (Elt.of_char c))
+
+  let map f = String.map Elt.(to_char % f % of_char)
 
 
   let get seq i = Elt.of_char (String.get seq i)
