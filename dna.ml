@@ -44,6 +44,11 @@ include Seq.Make (Nt)
   (get (of_string "gattaca") 6) Nt.A
 *)
 
+(*$= is_empty
+  (is_empty (of_string "")) true
+  (is_empty (of_string "a")) false
+*)
+
 (*$= length
   (length (of_string "")) 0
   (length (of_string "a")) 1
