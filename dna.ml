@@ -57,4 +57,14 @@ include Seq.Make (Nt)
 
 let comp = map Nt.comp
 
+(*$= comp
+  (comp (of_string "")) (of_string "")
+  (comp (of_string "gattaca")) (of_string "ctaatgt")
+*)
+
 let rev_comp = Batteries.(rev % comp)
+
+(*$= rev_comp
+  (rev_comp (of_string "")) (of_string "")
+  (rev_comp (of_string "gattaca")) (of_string "tgtaatc")
+*)
