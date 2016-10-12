@@ -31,6 +31,9 @@ module Make (Elt : Elt_sig) : sig
   val rev : t -> t
 
   val count : Elt.t -> t -> int
+
+  val hamm_dist : t -> t -> int
+  val p_dist : t -> t -> float
 end = struct
   type t = string
 
@@ -74,4 +77,27 @@ end = struct
       if seq.[i] = c then incr n
     done;
     !n
+
+
+  let hamm_dist_aux s t n =
+    let ans = ref 0 in
+    for i = 0 to n - 1 do
+      if s.[i] <> t.[i] then incr ans
+    done;
+    !ans
+
+  let hamm_dist s t =
+    let n = length s in
+    if length t = n then
+      hamm_dist_aux s t n
+    else invalid_arg "Seq.hamm_dist"
+
+  let p_dist s t =
+    let n = length s in
+    if length t = n then
+      if n > 0 then
+        float_of_int (hamm_dist_aux s t n) /.
+        float_of_int n
+      else 0.0
+    else invalid_arg "Seq.p_dist"
 end
