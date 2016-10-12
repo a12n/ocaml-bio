@@ -28,6 +28,8 @@ module Make (Elt : Elt_sig) : sig
   val get : t -> int -> Elt.t
   val length : t -> int
   val rev : t -> t
+
+  val count : Elt.t -> t -> int
 end = struct
   type t = string
 
@@ -60,4 +62,9 @@ end = struct
   let length = String.length
 
   let rev = String.rev
+
+
+  let count elt =
+    let c = Elt.to_char elt in
+    String.fold_left (fun n ck -> if ck = c then n + 1 else n) 0
 end
