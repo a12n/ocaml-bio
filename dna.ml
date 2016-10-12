@@ -17,10 +17,11 @@ module Nt = struct
     | _ -> invalid_arg "Dna.Nt.of_char"
 
   let of_int = function
-    | 0 -> A
-    | 1 -> C
-    | 2 -> G
-    | 3 -> T
+    (* As in 2bit *)
+    | 0b10 -> A
+    | 0b01 -> C
+    | 0b11 -> G
+    | 0b00 -> T
     | _ -> invalid_arg "Dna.Nt.of_int"
 
   let to_char = function
@@ -30,10 +31,11 @@ module Nt = struct
     | T -> 'T'
 
   let to_int = function
-    | A -> 0
-    | C -> 1
-    | G -> 2
-    | T -> 3
+    (* As in 2bit *)
+    | A -> 0b10
+    | C -> 0b01
+    | G -> 0b11
+    | T -> 0b00
 end
 
 include Seq.Make (Nt)
