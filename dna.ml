@@ -31,3 +31,9 @@ module Nt = struct
 end
 
 include Seq.Make (Nt)
+
+(*$= get
+  (get (of_string "gattaca") 0) Nt.G
+  (get (of_string "gattaca") 1) Nt.A
+  (get (of_string "gattaca") 6) Nt.A
+*)
