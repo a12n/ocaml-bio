@@ -99,10 +99,11 @@ let comp = map Nt.comp
   (comp (of_string "gattaca")) (of_string "ctaatgt")
 *)
 
-let gc_content dna =
-  assert (not (is_empty dna));
-  float_of_int (count Nt.G dna + count Nt.C dna) /.
-  float_of_int (length dna)
+let gc_content s =
+  match length s with
+  | 0 -> invalid_arg "Dna.gc_content"
+  | n -> float_of_int (count Nt.G s + count Nt.C s) /.
+         float_of_int n
 
 (*$T gc_content
   Batteries.Float.approx_equal (gc_content (of_string "att")) 0.0
@@ -222,10 +223,11 @@ module Ambig = struct
 
   let comp = map Nt.comp
 
-  let gc_content dna =
-    assert (not (is_empty dna));
-    float_of_int (count Nt.G dna + count Nt.C dna + count Nt.S dna) /.
-    float_of_int (length dna)
+  let gc_content s =
+    match length s with
+    | 0 -> invalid_arg "Dna.Ambig.gc_content"
+    | n -> float_of_int (count Nt.G s + count Nt.C s + count Nt.S s) /.
+           float_of_int n
 
   let rev_comp = Batteries.(rev % comp)
 end
