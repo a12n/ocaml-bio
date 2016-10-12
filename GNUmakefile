@@ -15,7 +15,7 @@ clean:
 test: dna_tests.${TARGET}
 	@for test in $^; do	\
 		echo ==== $$test ====;	\
-		./$$test;	\
+		./$$test --slow 5;	\
 	done
 
 utop: lib
