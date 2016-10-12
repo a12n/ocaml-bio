@@ -83,6 +83,12 @@ let gc_content dna =
   float_of_int (count Nt.G dna + count Nt.C dna) /.
   float_of_int (length dna)
 
+(*$T gc_content
+  Batteries.Float.approx_equal (gc_content (of_string "att")) 0.0
+  Batteries.Float.approx_equal (gc_content (of_string "ccg")) 1.0
+  Batteries.Float.approx_equal (gc_content (of_string "gattaca")) (2.0 /. 7.0)
+*)
+
 let rev_comp = Batteries.(rev % comp)
 
 (*$= rev_comp
