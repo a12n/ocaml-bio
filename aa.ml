@@ -126,6 +126,32 @@ let abbr = function
   | Y -> "Tyr"
   | V -> "Val"
 
+(** Average mass. Average of molecule's possible masses, taken over
+    all isotopes of the molecule. *)
+let avg_mass = function
+  | A ->  71.0788
+  | R -> 156.1875
+  | N -> 114.1039
+  | D -> 115.0886
+  | C -> 103.1388
+  | Q -> 128.1307
+  | E -> 129.1155
+  | G ->  57.0519
+  | H -> 137.1411
+  | I -> 113.1594
+  | L -> 113.1594
+  | K -> 128.1741
+  | M -> 131.1986
+  | F -> 147.1766
+  | P ->  97.1167
+  | O -> 237.3018
+  | S ->  87.0782
+  | U -> 150.0379
+  | T -> 101.1051
+  | W -> 186.2132
+  | Y -> 163.1760
+  | V ->  99.1326
+
 (** Monoisotopic mass. The sum of the masses of the most common
     isotopes of the atoms making up a molecule. *)
 let mass = function
