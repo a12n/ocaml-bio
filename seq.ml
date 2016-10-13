@@ -35,6 +35,7 @@ module Make (Elt : Elt_sig) : sig
 
   val count : Elt.t -> t -> int
 
+  val edit_dist : t -> t -> int
   val hamm_dist : t -> t -> int
   val p_dist : t -> t -> float
 end = struct
@@ -87,6 +88,25 @@ end = struct
     done;
     !ans
 
+
+  let edit_dist s t =
+    let n = length s in
+    let m = length t in
+    let d = Array.make_matrix 2 (m + 1) 0 in
+    for j = 1 to m do
+      d.(0).(j) <- j
+    done;
+    for i = 1 to n do
+      d.(i mod 2).(0) <- i;
+      for j = 1 to m do
+        let cost = if s.[i - 1] = t.[j - 1] then 0 else 1 in
+        let del = d.((i - 1) mod 2).(j) + 1 in
+        let ins = d.(i mod 2).(j - 1) + 1 in
+        let subst = d.((i - 1) mod 2).(j - 1) + cost in
+        d.(i mod 2).(j) <- Int.(min (min del ins) subst)
+      done
+    done;
+    d.(n mod 2).(m)
 
   let hamm_dist_aux s t n =
     let ans = ref 0 in
