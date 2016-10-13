@@ -134,6 +134,22 @@ let num_trans =
   (num_trans (of_string "ATG") (of_string "CGC")) 0
 *)
 
+let num_transv =
+  fold_left2 Nt.(fun n si ti ->
+      match si, ti with
+      | A, C | C, A -> n + 1
+      | A, T | T, A -> n + 1
+      | G, C | C, G -> n + 1
+      | G, T | T, G -> n + 1
+      | _other -> n
+    ) 0
+
+(*$= num_transv
+  (num_transv (of_string "") (of_string "")) 0
+  (num_transv (of_string "ATG") (of_string "CGC")) 3
+  (num_transv (of_string "GCAACGCA") (of_string "TTATCTGA")) 4
+*)
+
 let rev_comp = rev % comp
 
 (*$= rev_comp
