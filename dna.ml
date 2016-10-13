@@ -80,6 +80,13 @@ include Seq.Make (Nt)
   (count Nt.T (of_string "gattaca")) 2
 *)
 
+(*$= edit_dist
+  (edit_dist (of_string "") (of_string "")) 0
+  (edit_dist (of_string "") (of_string "a")) 1
+  (edit_dist (of_string "atg") (of_string "att")) 1
+  (edit_dist (of_string "gattaca") (of_string "atg")) 5
+*)
+
 (*$= hamm_dist
   (hamm_dist (of_string "") (of_string "")) 0
   (hamm_dist (of_string "a") (of_string "a")) 0
