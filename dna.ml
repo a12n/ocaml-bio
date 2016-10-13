@@ -111,7 +111,7 @@ let comp = map Nt.comp
 let gc_content s =
   match length s with
   | 0 -> invalid_arg "Dna.gc_content"
-  | n -> float_of_int (count Nt.G s + count Nt.C s) /.
+  | n -> float_of_int Nt.(count G s + count C s) /.
          float_of_int n
 
 (*$T gc_content
