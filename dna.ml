@@ -108,6 +108,13 @@ include Seq.Make (Nt)
   (lcs (of_string "AACCTTGG") (of_string "ACACTGTGA")) (of_string "AACTTG")
 *)
 
+(*$= scs
+  (scs (of_string "") (of_string "")) (of_string "")
+  (scs (of_string "") (of_string "ATG")) (of_string "ATG")
+  (scs (of_string "ATG") (of_string "")) (of_string "ATG")
+  (scs (of_string "ATCTGAT") (of_string "TGCATA")) (of_string "ATGCATGAT")
+*)
+
 let comp = map Nt.comp
 
 (*$= comp
