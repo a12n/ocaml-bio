@@ -107,4 +107,32 @@ module Make (Elt : Elt_sig) = struct
         float_of_int n
       else 0.0
     else invalid_arg "Seq.p_dist"
+
+
+  let lcs s t =
+    let n = length s in
+    let m = length t in
+    let c = Array.make_matrix (n + 1) (m + 1) 0 in
+    for i = 1 to n do
+      for j = 1 to m do
+        c.(i).(j) <-
+          if s.[i - 1] = t.[j - 1] then
+            c.(i - 1).(j - 1) + 1
+          else
+            max c.(i).(j - 1) c.(i - 1).(j)
+      done
+    done;
+    let buf = Buffer.create (max n m) in
+    let rec backtrack = function
+      | (_, 0) | (0, _) -> ()
+      | (i, j) when s.[i - 1] = t.[j - 1] ->
+        backtrack (i - 1, j - 1);
+        Buffer.add_char buf s.[i - 1]
+      | (i, j) ->
+        if c.(i).(j - 1) > c.(i - 1).(j) then
+          backtrack (i, j - 1)
+        else
+          backtrack (i - 1, j)
+    in backtrack (n, m);
+    Buffer.contents buf
 end

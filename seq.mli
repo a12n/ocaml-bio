@@ -37,4 +37,6 @@ module Make : functor (Elt : Elt_sig) -> sig
   val edit_dist : t -> t -> int
   val hamm_dist : t -> t -> int
   val p_dist : t -> t -> float
+
+  val lcs : t -> t -> t
 end
