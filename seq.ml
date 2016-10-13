@@ -135,4 +135,26 @@ module Make (Elt : Elt_sig) = struct
           backtrack (i - 1, j)
     in backtrack (n, m);
     Buffer.contents buf
+
+  let scs s t =
+    let lcs = lcs s t in
+    let sn = length s in
+    let tn = length t in
+    let n = length lcs in
+    let buf = Buffer.create (sn + tn) in
+    let rec loop i si ti =
+      if i < n then
+        if s.[si] = lcs.[i] then
+          if t.[ti] = lcs.[i] then
+            (Buffer.add_char buf lcs.[i]; loop (i + 1) (si + 1) (ti + 1))
+          else
+            (Buffer.add_char buf t.[ti]; loop i si (ti + 1))
+        else
+          (Buffer.add_char buf s.[si]; loop i (si + 1) ti)
+      else if si < sn then
+        (Buffer.add_char buf s.[si]; loop i (si + 1) ti)
+      else if ti < tn then
+        (Buffer.add_char buf t.[ti]; loop i si (ti + 1))
+    in loop 0 0 0;
+    Buffer.contents buf
 end
