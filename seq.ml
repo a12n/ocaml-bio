@@ -23,6 +23,7 @@ module Make (Elt : Elt_sig) : sig
   val to_string : t -> string
 
   val fold_left : ('a -> Elt.t -> 'a) -> 'a -> t -> 'a
+  val fold_left2 : ('a -> Elt.t -> Elt.t -> 'a) -> 'a -> t -> t -> 'a
   val map : (Elt.t -> Elt.t) -> t -> t
 
   val get : t -> int -> Elt.t
@@ -76,6 +77,13 @@ end = struct
 
 
   let fold_left f = String.fold_left (fun ans c -> f ans (Elt.of_char c))
+
+  let fold_left2 f init s t =
+    if length s <> length t then
+      invalid_arg "Seq.fold_left2";
+    String.fold_lefti (fun ans i si ->
+        f ans (Elt.of_char si) (Elt.of_char t.[i])
+      ) init s
 
   let map f = String.map Elt.(to_char % f % of_char)
 
