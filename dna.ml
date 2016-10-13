@@ -101,6 +101,13 @@ include Seq.Make (Nt)
   Batteries.Float.approx_equal (p_dist (of_string "gattaca") (of_string "atgatga")) (6.0 /. 7.0)
 *)
 
+(*$= lcs
+  (lcs (of_string "") (of_string "")) (of_string "")
+  (lcs (of_string "") (of_string "AAA")) (of_string "")
+  (lcs (of_string "AAA") (of_string "")) (of_string "")
+  (lcs (of_string "AACCTTGG") (of_string "ACACTGTGA")) (of_string "AACTTG")
+*)
+
 let comp = map Nt.comp
 
 (*$= comp
