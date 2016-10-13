@@ -120,6 +120,20 @@ let gc_content s =
   Batteries.Float.approx_equal (gc_content (of_string "gattaca")) (2.0 /. 7.0)
 *)
 
+let num_trans =
+  fold_left2 Nt.(fun n si ti ->
+      match si, ti with
+      | A, G | G, A -> n + 1
+      | C, T | T, C -> n + 1
+      | _other -> n
+    ) 0
+
+(*$= num_trans
+  (num_trans (of_string "") (of_string "")) 0
+  (num_trans (of_string "AGTACGGG") (of_string "GGTACGAG")) 2
+  (num_trans (of_string "ATG") (of_string "CGC")) 0
+*)
+
 let rev_comp = rev % comp
 
 (*$= rev_comp

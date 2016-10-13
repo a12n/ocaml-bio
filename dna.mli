@@ -12,6 +12,7 @@ include module type of Seq.Make (Nt)
 
 val comp : t -> t
 val gc_content : t -> float
+val num_trans : t -> t -> int
 val rev_comp : t -> t
 val transcribe : t -> Rna.t
 
