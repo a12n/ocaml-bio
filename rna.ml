@@ -40,7 +40,6 @@ end
 
 module Gen_code = struct
   module type Sig = sig
-    val rev_translate : Aa.t -> Codon.t list
     val start_codons : Codon.t list
     val stop_codons : Codon.t list
     val translate : Codon.t -> Aa.t option
@@ -62,28 +61,6 @@ module Gen_code = struct
       ))
 
   module Std : Sig = struct
-    let rev_translate = function
-      | Aa.A -> [G,C,U; G,C,C; G,C,A; G,C,G]
-      | Aa.R -> [C,G,U; C,G,C; C,G,A; C,G,G; A,G,A; A,G,G]
-      | Aa.N -> [A,A,U; A,A,C]
-      | Aa.D -> [G,A,U; G,A,C]
-      | Aa.C -> [U,G,U; U,G,C]
-      | Aa.Q -> [C,A,A; C,A,G]
-      | Aa.E -> [G,A,A; G,A,G]
-      | Aa.G -> [G,G,U; G,G,C; G,G,A; G,G,G]
-      | Aa.H -> [C,A,U; C,A,C]
-      | Aa.I -> [A,U,U; A,U,C; A,U,A]
-      | Aa.L -> [U,U,A; U,U,G; C,U,U; C,U,C; C,U,A; C,U,G]
-      | Aa.K -> [A,A,A; A,A,G]
-      | Aa.M -> [A,U,G]
-      | Aa.F -> [U,U,U; U,U,C]
-      | Aa.P -> [C,C,U; C,C,C; C,C,A; C,C,G]
-      | Aa.S -> [U,C,U; U,C,C; U,C,A; U,C,G; A,G,U; A,G,C]
-      | Aa.T -> [A,C,U; A,C,C; A,C,A; A,C,G]
-      | Aa.W -> [U,G,G]
-      | Aa.Y -> [U,A,U; U,A,C]
-      | Aa.V -> [G,U,U; G,U,C; G,U,A; G,U,G]
-
     let translate = function
       | G,C,U | G,C,C | G,C,A | G,C,G                 -> Some Aa.A
       | C,G,U | C,G,C | C,G,A | C,G,G | A,G,A | A,G,G -> Some Aa.R
@@ -110,12 +87,31 @@ module Gen_code = struct
     let start_codons = [U,U,G; C,U,G; A,U,G]
 
     let stop_codons = find_stop_codons translate
+
+    let rev_translate = function
+      | Aa.A -> [G,C,U; G,C,C; G,C,A; G,C,G]
+      | Aa.R -> [C,G,U; C,G,C; C,G,A; C,G,G; A,G,A; A,G,G]
+      | Aa.N -> [A,A,U; A,A,C]
+      | Aa.D -> [G,A,U; G,A,C]
+      | Aa.C -> [U,G,U; U,G,C]
+      | Aa.Q -> [C,A,A; C,A,G]
+      | Aa.E -> [G,A,A; G,A,G]
+      | Aa.G -> [G,G,U; G,G,C; G,G,A; G,G,G]
+      | Aa.H -> [C,A,U; C,A,C]
+      | Aa.I -> [A,U,U; A,U,C; A,U,A]
+      | Aa.L -> [U,U,A; U,U,G; C,U,U; C,U,C; C,U,A; C,U,G]
+      | Aa.K -> [A,A,A; A,A,G]
+      | Aa.M -> [A,U,G]
+      | Aa.F -> [U,U,U; U,U,C]
+      | Aa.P -> [C,C,U; C,C,C; C,C,A; C,C,G]
+      | Aa.S -> [U,C,U; U,C,C; U,C,A; U,C,G; A,G,U; A,G,C]
+      | Aa.T -> [A,C,U; A,C,C; A,C,A; A,C,G]
+      | Aa.W -> [U,G,G]
+      | Aa.Y -> [U,A,U; U,A,C]
+      | Aa.V -> [G,U,U; G,U,C; G,U,A; G,U,G]
   end
 
   module Vert_mt : Sig = struct
-    (* TODO *)
-    let rev_translate _aa = []
-
     let translate = function
       | A,U,A         -> Some Aa.M
       | U,G,A         -> Some Aa.W
@@ -128,9 +124,6 @@ module Gen_code = struct
   end
 
   module Yeast_mt : Sig = struct
-    (* TODO *)
-    let rev_translate _aa = []
-
     let translate = function
       | A,U,A                         -> Some Aa.M
       | C,U,U | C,U,C | C,U,A | C,U,G -> Some Aa.T
@@ -143,9 +136,6 @@ module Gen_code = struct
   end
 
   module Mold_mt : Sig = struct
-    (* TODO *)
-    let rev_translate _aa = []
-
     let translate = function
       | U,G,A -> Some Aa.W
       | codon -> Std.translate codon
