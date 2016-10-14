@@ -15,4 +15,7 @@ module Gen_code : sig
     val stop_codons : Codon.t list
     val translate : Codon.t -> Aa.t option
   end
+
+  (** Standard. *)
+  module Std : Sig
 end
