@@ -238,3 +238,10 @@ let translate ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
   let open Batteries in
   Enum.from_while (fun () -> Option.bind (Enum.get rf) Gen_code.translate) |>
   Prot.of_enum
+
+(*$= translate
+  (translate (codons (of_string "AUGAAAAAUAAGUUUAAAACCCAGGAAGAGUGA"))) (Prot.of_string "MKNKFKTQEE")
+  (translate (codons (of_string "UAG"))) (Prot.of_string "")
+  (translate (Batteries.List.enum Nt.[A,U,G])) (Prot.of_string "M")
+  (translate (Batteries.Enum.empty ())) (Prot.of_string "")
+*)
