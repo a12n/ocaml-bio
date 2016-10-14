@@ -38,6 +38,10 @@ module Codon = struct
   type t = Nt.t * Nt.t * Nt.t
 end
 
+module Rf = struct
+  type t = Codon.t Batteries.Enum.t
+end
+
 module Gen_code = struct
   module type Sig = sig
     val start_codons : Codon.t list

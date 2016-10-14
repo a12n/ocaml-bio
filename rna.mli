@@ -9,6 +9,10 @@ module Codon : sig
   type t = Nt.t * Nt.t * Nt.t
 end
 
+module Rf : sig
+  type t = Codon.t Batteries.Enum.t
+end
+
 module Gen_code : sig
   module type Sig = sig
     val start_codons : Codon.t list
