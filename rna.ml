@@ -127,4 +127,20 @@ module Gen_code = struct
 
     let stop_codons = find_stop_codons translate
   end
+
+  module Yeast_mt : Sig = struct
+    (* TODO *)
+    let rev_translate _aa = []
+
+    let translate = Nt.(function
+        | A,U,A                         -> Some Aa.M
+        | C,U,U | C,U,C | C,U,A | C,U,G -> Some Aa.T
+        | U,G,A                         -> Some Aa.W
+        | codon                         -> Std.translate codon
+      )
+
+    let start_codons = Nt.[A,U,A; A,U,G]
+
+    let stop_codons = find_stop_codons translate
+  end
 end

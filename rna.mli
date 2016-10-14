@@ -22,4 +22,7 @@ module Gen_code : sig
 
   (** Vertebrate Mitochondrial. *)
   module Vert_mt : Sig
+
+  (** Yeast Mitochondrial. *)
+  module Yeast_mt : Sig
 end
