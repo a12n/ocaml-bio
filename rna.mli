@@ -41,4 +41,5 @@ end
     reading frames 1 and 2. *)
 val codons : t -> Rf.t
 
+(** Return all trhee reading frames of RNA strand. *)
 val rfs : t -> Rf.t * Rf.t * Rf.t
