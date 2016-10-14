@@ -43,3 +43,7 @@ val codons : t -> Rf.t
 
 (** Return all trhee reading frames of RNA strand. *)
 val rfs : t -> Rf.t * Rf.t * Rf.t
+
+(** Translate reading frame to a protein string according to specified
+    genetic code ([Gen_code.Std] is used by default). *)
+val translate : ?gen_code:(module Gen_code.Sig) -> Rf.t -> Prot.t

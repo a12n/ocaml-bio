@@ -232,3 +232,9 @@ let rfs = rfs_of_enum % enum
    let (a,b,c) = Batteries.List.(of_enum a, of_enum b, of_enum c) in \
    a = Nt.[G,A,U; U,A,C] && b = Nt.[A,U,U; A,C,A] && c = Nt.[U,U,A])
 *)
+
+let translate ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
+  let module Gen_code = (val gen_code : Gen_code.Sig) in
+  let open Batteries in
+  Enum.from_while (fun () -> Option.bind (Enum.get rf) Gen_code.translate) |>
+  Prot.of_enum
