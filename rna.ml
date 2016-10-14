@@ -210,6 +210,15 @@ let codons = codons_of_enum % enum
   Batteries.List.of_enum (codons (of_string "gauuaca")) = Nt.[G,A,U; U,A,C]
 *)
 
+let orf ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
+  let module Gen_code = (val gen_code : Gen_code.Sig) in
+  Batteries.Enum.(
+    rf |>
+    drop_while (fun codon -> not (List.mem codon Gen_code.start_codons)) |>
+    take_while (fun codon -> not (List.mem codon Gen_code.stop_codons))
+    (* TODO: append stop codon *)
+  )
+
 let rfs_of_enum nts =
   Batteries.Enum.(
     nts |> codons_of_enum,
