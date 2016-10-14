@@ -60,7 +60,7 @@ module Gen_code = struct
                | _other -> None
       ))
 
-  module Std : Sig = struct
+  module Std = struct
     let translate = function
       | G,C,U | G,C,C | G,C,A | G,C,G                 -> Some Aa.A
       | C,G,U | C,G,C | C,G,A | C,G,G | A,G,A | A,G,G -> Some Aa.R
@@ -111,7 +111,7 @@ module Gen_code = struct
       | Aa.V -> [G,U,U; G,U,C; G,U,A; G,U,G]
   end
 
-  module Vert_mt : Sig = struct
+  module Vert_mt = struct
     let translate = function
       | A,U,A         -> Some Aa.M
       | U,G,A         -> Some Aa.W
@@ -123,7 +123,7 @@ module Gen_code = struct
     let stop_codons = find_stop_codons translate
   end
 
-  module Yeast_mt : Sig = struct
+  module Yeast_mt = struct
     let translate = function
       | A,U,A                         -> Some Aa.M
       | C,U,U | C,U,C | C,U,A | C,U,G -> Some Aa.T
@@ -135,7 +135,7 @@ module Gen_code = struct
     let stop_codons = find_stop_codons translate
   end
 
-  module Mold_mt : Sig = struct
+  module Mold_mt = struct
     let translate = function
       | U,G,A -> Some Aa.W
       | codon -> Std.translate codon
