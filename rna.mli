@@ -25,4 +25,7 @@ module Gen_code : sig
 
   (** Yeast Mitochondrial. *)
   module Yeast_mt : Sig
+
+  (** Mold, Protozoan, Coelenterate Mitochondrial & Mycoplasma/Spiroplasma. *)
+  module Mold_mt : Sig
 end

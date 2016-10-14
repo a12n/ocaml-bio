@@ -141,4 +141,17 @@ module Gen_code = struct
 
     let stop_codons = find_stop_codons translate
   end
+
+  module Mold_mt : Sig = struct
+    (* TODO *)
+    let rev_translate _aa = []
+
+    let translate = function
+      | U,G,A -> Some Aa.W
+      | codon -> Std.translate codon
+
+    let start_codons = [U,U,A; U,U,G; C,U,G; A,U,U; A,U,C; A,U,A; A,U,G; G,U,G]
+
+    let stop_codons = find_stop_codons translate
+  end
 end
