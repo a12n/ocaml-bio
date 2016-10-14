@@ -36,4 +36,9 @@ module Gen_code : sig
   module Mold_mt : Sig
 end
 
+(** Returns reading frame 0 of RNA strand [s]. Equivalent
+    to [let (rf0, _, _) = rfs s in rf0], but doesn't create
+    reading frames 1 and 2. *)
+val codons : t -> Rf.t
+
 val rfs : t -> Rf.t * Rf.t * Rf.t

@@ -202,6 +202,14 @@ let codons_of_enum nts =
       base1, base2, base3
     ))
 
+let codons = codons_of_enum % enum
+
+(*$T codons
+  Batteries.List.of_enum (codons (of_string "")) = []
+  Batteries.List.of_enum (codons (of_string "aug")) = Nt.[A,U,G]
+  Batteries.List.of_enum (codons (of_string "gauuaca")) = Nt.[G,A,U; U,A,C]
+*)
+
 let rfs_of_enum nts =
   Batteries.Enum.(
     nts |> codons_of_enum,
