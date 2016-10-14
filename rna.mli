@@ -35,3 +35,5 @@ module Gen_code : sig
   (** Mold, Protozoan, Coelenterate Mitochondrial & Mycoplasma/Spiroplasma. *)
   module Mold_mt : Sig
 end
+
+val rfs : t -> Rf.t * Rf.t * Rf.t

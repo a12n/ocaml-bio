@@ -199,3 +199,12 @@ let codons_of_enum nts =
       let base3 = get_exn nts in
       base1, base2, base3
     ))
+
+let rfs_of_enum nts =
+  Batteries.Enum.(
+    nts |> codons_of_enum,
+    clone nts |> skip 1 |> codons_of_enum,
+    clone nts |> skip 2 |> codons_of_enum
+  )
+
+let rfs = rfs_of_enum % enum
