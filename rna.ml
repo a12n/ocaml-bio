@@ -106,6 +106,8 @@ module Gen_code = struct
         | U,A,A | U,A,G | U,G,A                         -> None
       )
 
+    let start_codons = Nt.[U,U,G; C,U,G; A,U,G]
+
     let stop_codons = find_stop_codons translate
   end
 
@@ -119,6 +121,8 @@ module Gen_code = struct
         | A,G,A | A,G,G -> None
         | codon         -> Std.translate codon
       )
+
+    let start_codons = Nt.[A,U,U; A,U,C; A,U,A; A,U,G; G,U,G]
 
     let stop_codons = find_stop_codons translate
   end
