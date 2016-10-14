@@ -187,3 +187,11 @@ module Gen_code = struct
   (* (\** Candidate Division SR1 and Gracilibacteria. *\) *)
   (* module Gracilibacteria : Sig *)
 end
+
+let codons_of_enum nts =
+  Batteries.Enum.(from (fun () ->
+      let base1 = get_exn nts in
+      let base2 = get_exn nts in
+      let base3 = get_exn nts in
+      base1, base2, base3
+    ))
