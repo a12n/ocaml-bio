@@ -1,3 +1,5 @@
+open BatPervasives
+
 module Nt = struct
   type nt = A | C | G | U and t = nt
 
