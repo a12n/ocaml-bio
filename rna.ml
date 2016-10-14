@@ -44,4 +44,17 @@ module Gen_code = struct
     val stop_codons : Codon.t list
     val translate : Codon.t -> Aa.t option
   end
+
+  let find_stop_codons translate =
+    let nts = Nt.[A; C; G; U] in
+    Batteries.List.(
+      n_cartesian_product [nts; nts; nts] |>
+      filter_map (
+        function [base1; base2; base3] ->
+          let codon = base1, base2, base3 in
+          (match translate codon with
+           | Some _aa -> None
+           | None -> Some codon)
+               | _other -> None
+      ))
 end
