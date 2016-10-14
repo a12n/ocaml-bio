@@ -33,3 +33,7 @@ module Nt = struct
 end
 
 include Seq.Make (Nt)
+
+module Codon = struct
+  type t = Nt.t * Nt.t * Nt.t
+end

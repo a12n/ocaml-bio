@@ -4,3 +4,7 @@ module Nt : sig
 end
 
 include module type of Seq.Make (Nt)
+
+module Codon : sig
+  type t = Nt.t * Nt.t * Nt.t
+end
