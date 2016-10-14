@@ -58,7 +58,6 @@ module Gen_code = struct
                | _other -> None
       ))
 
-  (** Standard. *)
   module Std : Sig = struct
     let rev_translate = Nt.(function
         | Aa.A -> [G,C,U; G,C,C; G,C,A; G,C,G]
@@ -105,6 +104,20 @@ module Gen_code = struct
         | U,A,U | U,A,C                                 -> Some Aa.Y
         | G,U,U | G,U,C | G,U,A | G,U,G                 -> Some Aa.V
         | U,A,A | U,A,G | U,G,A                         -> None
+      )
+
+    let stop_codons = find_stop_codons translate
+  end
+
+  module Vert_mt : Sig = struct
+    (* TODO *)
+    let rev_translate _aa = []
+
+    let translate = Nt.(function
+        | A,U,A         -> Some Aa.M
+        | U,G,A         -> Some Aa.W
+        | A,G,A | A,G,G -> None
+        | codon         -> Std.translate codon
       )
 
     let stop_codons = find_stop_codons translate

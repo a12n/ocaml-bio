@@ -18,4 +18,7 @@ module Gen_code : sig
 
   (** Standard. *)
   module Std : Sig
+
+  (** Vertebrate Mitochondrial. *)
+  module Vert_mt : Sig
 end
