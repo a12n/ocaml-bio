@@ -1,8 +1,10 @@
-type aa = A | R | N | D | C | Q | E | G | H | I | L
-        | K | M | F | P | O | S | U | T | W | Y | V
+type aa = A | R | N | D | C | Q | E | G | H | I
+        | L | K | M | F | P | S | T | W | Y | V
+        (* | O | U *)
 and t = aa
 
-let n = 22
+(* let n = 22 *)
+let n = 20
 
 let of_char = function
   | 'A' | 'a' -> A
@@ -20,13 +22,13 @@ let of_char = function
   | 'M' | 'm' -> M
   | 'F' | 'f' -> F
   | 'P' | 'p' -> P
-  | 'O' | 'o' -> O
   | 'S' | 's' -> S
-  | 'U' | 'u' -> U
   | 'T' | 't' -> T
   | 'W' | 'w' -> W
   | 'Y' | 'y' -> Y
   | 'V' | 'v' -> V
+  (* | 'O' | 'o' -> O *)
+  (* | 'U' | 'u' -> U *)
   | _other -> invalid_arg "Aa.of_char"
 
 let of_int = function
@@ -45,13 +47,13 @@ let of_int = function
   | 12 -> M
   | 13 -> F
   | 14 -> P
-  | 15 -> O
-  | 16 -> S
-  | 17 -> U
-  | 18 -> T
-  | 19 -> W
-  | 20 -> Y
-  | 21 -> V
+  | 15 -> S
+  | 16 -> T
+  | 17 -> W
+  | 18 -> Y
+  | 19 -> V
+  (* | 20 -> O *)
+  (* | 21 -> U *)
   | _ -> invalid_arg "Aa.of_int"
 
 let to_char = function
@@ -70,13 +72,13 @@ let to_char = function
   | M -> 'M'
   | F -> 'F'
   | P -> 'P'
-  | O -> 'O'
   | S -> 'S'
-  | U -> 'U'
   | T -> 'T'
   | W -> 'W'
   | Y -> 'Y'
   | V -> 'V'
+  (* | O -> 'O' *)
+  (* | U -> 'U' *)
 
 let to_int = function
   | A -> 0
@@ -94,13 +96,13 @@ let to_int = function
   | M -> 12
   | F -> 13
   | P -> 14
-  | O -> 15
-  | S -> 16
-  | U -> 17
-  | T -> 18
-  | W -> 19
-  | Y -> 20
-  | V -> 21
+  | S -> 15
+  | T -> 16
+  | W -> 17
+  | Y -> 18
+  | V -> 19
+  (* | O -> 15 *)
+  (* | U -> 17 *)
 
 let abbr = function
   | A -> "Ala"
@@ -118,13 +120,13 @@ let abbr = function
   | M -> "Met"
   | F -> "Phe"
   | P -> "Pro"
-  | O -> "Pyl"
   | S -> "Ser"
-  | U -> "Sec"
   | T -> "Thr"
   | W -> "Trp"
   | Y -> "Tyr"
   | V -> "Val"
+  (* | O -> "Pyl" *)
+  (* | U -> "Sec" *)
 
 (** Average mass. Average of molecule's possible masses, taken over
     all isotopes of the molecule. *)
@@ -144,13 +146,13 @@ let avg_mass = function
   | M -> 131.1986
   | F -> 147.1766
   | P ->  97.1167
-  | O -> 237.3018
   | S ->  87.0782
-  | U -> 150.0379
   | T -> 101.1051
   | W -> 186.2132
   | Y -> 163.1760
   | V ->  99.1326
+  (* | O -> 237.3018 *)
+  (* | U -> 150.0379 *)
 
 (** Monoisotopic mass. The sum of the masses of the most common
     isotopes of the atoms making up a molecule. *)
@@ -170,13 +172,13 @@ let mass = function
   | M -> 131.04049
   | F -> 147.06841
   | P ->  97.05276
-  | O -> 237.14773
   | S ->  87.03203
-  | U -> 150.95363
   | T -> 101.04768
   | W -> 186.07931
   | Y -> 163.06333
   | V ->  99.06841
+  (* | O -> 237.14773 *)
+  (* | U -> 150.95363 *)
 
 let name = function
   | A -> "Alanine"
@@ -194,10 +196,10 @@ let name = function
   | M -> "Methionine"
   | F -> "Phenylalanine"
   | P -> "Proline"
-  | O -> "Pyrrolysine"
   | S -> "Serine"
-  | U -> "Selenocysteine"
   | T -> "Threonine"
   | W -> "Tryptophan"
   | Y -> "Tyrosine"
   | V -> "Valine"
+  (* | O -> "Pyrrolysine" *)
+  (* | U -> "Selenocysteine" *)
