@@ -12,7 +12,7 @@ clean:
 	ocamlbuild ${OCAMLBUILD_FLAGS} -clean
 	${RM} *_tests.ml qtest.targets.log
 
-test: dna_tests.${TARGET} prot_tests.${TARGET}
+test: dna_tests.${TARGET} prot_tests.${TARGET} rna_tests.${TARGET}
 	@for test in $^; do	\
 		echo ==== $$test ====;	\
 		./$$test --slow 5;	\
