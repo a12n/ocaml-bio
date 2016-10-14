@@ -37,3 +37,11 @@ include Seq.Make (Nt)
 module Codon = struct
   type t = Nt.t * Nt.t * Nt.t
 end
+
+module Gen_code = struct
+  module type Sig = sig
+    val rev_translate : Aa.t -> Codon.t list
+    val stop_codons : Codon.t list
+    val translate : Codon.t -> Aa.t option
+  end
+end
