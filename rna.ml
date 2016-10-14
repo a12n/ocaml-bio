@@ -218,3 +218,17 @@ let rfs_of_enum nts =
   )
 
 let rfs = rfs_of_enum % enum
+
+(*$T rfs
+  (let (a,b,c) = rfs (of_string "") in \
+   let (a,b,c) = Batteries.List.(of_enum a, of_enum b, of_enum c) in \
+   a = [] && b = [] && c = [])
+
+  (let (a,b,c) = rfs (of_string "aau") in \
+   let (a,b,c) = Batteries.List.(of_enum a, of_enum b, of_enum c) in \
+   a = Nt.[A,A,U] && b = [] && c = [])
+
+  (let (a,b,c) = rfs (of_string "gauuaca") in \
+   let (a,b,c) = Batteries.List.(of_enum a, of_enum b, of_enum c) in \
+   a = Nt.[G,A,U; U,A,C] && b = Nt.[A,U,U; A,C,A] && c = Nt.[U,U,A])
+*)
