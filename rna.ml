@@ -213,10 +213,10 @@ let codons = codons_of_enum % enum
 let orf ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
   let module Gen_code = (val gen_code : Gen_code.Sig) in
   Batteries.Enum.(
-    rf |>
-    drop_while (fun codon -> not (List.mem codon Gen_code.start_codons)) |>
-    take_while (fun codon -> not (List.mem codon Gen_code.stop_codons))
-    (* TODO: append stop codon *)
+    let _pre_start, start = break ((flip List.mem) Gen_code.start_codons) rf in
+    let pre_stop, stop = break ((flip List.mem) Gen_code.stop_codons) start in
+    if is_empty stop then empty ()
+    else append pre_stop (take 1 stop)
   )
 
 (*$= orf
