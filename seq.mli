@@ -44,4 +44,9 @@ module Make : functor (Elt : Elt_sig) -> sig
 
   val lcs : t -> t -> t
   val scs : t -> t -> t
+
+  (** Position frequency matrix. *)
+  module Pfm : sig
+    type t = private int array array
+  end
 end

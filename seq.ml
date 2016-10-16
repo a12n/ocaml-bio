@@ -161,4 +161,9 @@ module Make (Elt : Elt_sig) = struct
         (Buffer.add_char buf t.[ti]; loop i si (ti + 1))
     in loop 0 0 0;
     Buffer.contents buf
+
+
+  module Pfm = struct
+    type t = int array array
+  end
 end
