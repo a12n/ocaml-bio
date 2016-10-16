@@ -166,6 +166,16 @@ module Make (Elt : Elt_sig) = struct
   module Pfm = struct
     type t = int array array
 
+    let consensus pfm =
+      let n = Array.length pfm.(0) in
+      Enum.init n (fun j ->
+          let k = ref 0 in
+          for i = 1 to Elt.n - 1 do
+            if pfm.(i).(j) > pfm.(!k).(j) then k := i
+          done;
+          Elt.of_int !k
+        ) |> of_enum
+
     let from_enum enum =
       let n = match Enum.peek enum with
         | Some s0 -> length s0

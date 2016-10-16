@@ -52,5 +52,7 @@ module Make : functor (Elt : Elt_sig) -> sig
     val from_array : seq array -> t
     val from_enum : seq Enum.t -> t
     val from_list : seq list -> t
+
+    val consensus : t -> seq
   end
 end
