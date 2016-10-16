@@ -6,6 +6,8 @@ module type Nt_sig = sig
 end
 
 module Nt = struct
+  (*$< Nt *)
+
   type nt = A | C | G | T and t = nt
 
   let comp = function
@@ -43,6 +45,15 @@ module Nt = struct
     | C -> 0b01
     | G -> 0b11
     | T -> 0b00
+
+  (*$Q of_int
+    (QCheck.oneofl [A; C; G; T]) (fun nt -> of_int (to_int nt) = nt)
+  *)
+  (*$Q of_char
+    (QCheck.oneofl [A; C; G; T]) (fun nt -> of_char (to_char nt) = nt)
+  *)
+
+  (*$>*)
 end
 
 include Seq.Make (Nt)
