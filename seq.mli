@@ -10,7 +10,7 @@ module type Elt_sig = sig
 end
 
 module Make : functor (Elt : Elt_sig) -> sig
-  type t
+  type t and seq = t
 
   val of_array : Elt.t array -> t
   val of_enum : Elt.t Enum.t -> t

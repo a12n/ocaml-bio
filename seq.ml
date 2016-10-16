@@ -10,7 +10,7 @@ module type Elt_sig = sig
 end
 
 module Make (Elt : Elt_sig) = struct
-  type t = string
+  type t = string and seq = t
 
 
   let of_array arr = String.init (Array.length arr) (Elt.to_char % Array.get arr)
