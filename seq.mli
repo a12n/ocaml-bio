@@ -1,3 +1,5 @@
+open Batteries
+
 module type Elt_sig = sig
   type t
   val n : int
@@ -11,11 +13,11 @@ module Make : functor (Elt : Elt_sig) -> sig
   type t
 
   val of_array : Elt.t array -> t
-  val of_enum : Elt.t Batteries.Enum.t -> t
+  val of_enum : Elt.t Enum.t -> t
   val of_list : Elt.t list -> t
   val of_string : string -> t
 
-  val enum : t -> Elt.t Batteries.Enum.t
+  val enum : t -> Elt.t Enum.t
   val to_array : t -> Elt.t array
   val to_list : t -> Elt.t list
   val to_string : t -> string
