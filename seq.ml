@@ -55,6 +55,10 @@ module Make (Elt : Elt_sig) = struct
         f ans (Elt.of_char si) (Elt.of_char t.[i])
       ) init s
 
+  let iter f = String.iter (f % Elt.of_char)
+
+  let iteri f = String.iteri (fun i c -> f i (Elt.of_char c))
+
   let map f = String.map Elt.(to_char % f % of_char)
 
 

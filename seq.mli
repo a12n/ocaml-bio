@@ -22,6 +22,8 @@ module Make : functor (Elt : Elt_sig) -> sig
 
   val fold_left : ('a -> Elt.t -> 'a) -> 'a -> t -> 'a
   val fold_left2 : ('a -> Elt.t -> Elt.t -> 'a) -> 'a -> t -> t -> 'a
+  val iter : (Elt.t -> unit) -> t -> unit
+  val iteri : (int -> Elt.t -> unit) -> t -> unit
   val map : (Elt.t -> Elt.t) -> t -> t
 
   val get : t -> int -> Elt.t
