@@ -8,43 +8,43 @@ end
 module Nt = struct
   (*$< Nt *)
 
-  type nt = A | C | G | T and t = nt
+  (* The order of constructors makes they integer representation
+     compatible with 2bit format. *)
+  type nt = T | C | A | G and t = nt
 
   let comp = function
-    | A -> T
-    | C -> G
-    | G -> C
     | T -> A
+    | C -> G
+    | A -> T
+    | G -> C
 
   let n = 4
 
   let of_char = function
-    | 'A' | 'a' -> A
-    | 'C' | 'c' -> C
-    | 'G' | 'g' -> G
     | 'T' | 't' -> T
+    | 'C' | 'c' -> C
+    | 'A' | 'a' -> A
+    | 'G' | 'g' -> G
     | _ -> invalid_arg "Dna.Nt.of_char"
 
   let of_int = function
-    (* As in 2bit *)
-    | 0b10 -> A
-    | 0b01 -> C
-    | 0b11 -> G
     | 0b00 -> T
+    | 0b01 -> C
+    | 0b10 -> A
+    | 0b11 -> G
     | _ -> invalid_arg "Dna.Nt.of_int"
 
   let to_char = function
-    | A -> 'A'
-    | C -> 'C'
-    | G -> 'G'
     | T -> 'T'
+    | C -> 'C'
+    | A -> 'A'
+    | G -> 'G'
 
   let to_int = function
-    (* As in 2bit *)
-    | A -> 0b10
-    | C -> 0b01
-    | G -> 0b11
     | T -> 0b00
+    | C -> 0b01
+    | A -> 0b10
+    | G -> 0b11
 
   (*$Q of_int
     (QCheck.oneofl [A; C; G; T]) (fun nt -> of_int (to_int nt) = nt)
