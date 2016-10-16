@@ -1,5 +1,5 @@
 module Nt : sig
-  type nt = A | C | G | U
+  type nt = U | C | A | G
   include Seq.Elt_sig with type t = nt
 end
 
