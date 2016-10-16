@@ -132,6 +132,18 @@ include Seq.Make (Nt)
   (scs (of_string "ATCTGAT") (of_string "TGCATA")) (of_string "ATGCATGAT")
 *)
 
+(*$< Pfm *)
+
+(*$= consensus
+  (consensus (from_list [of_string ""])) (of_string "")
+  (consensus (from_list [of_string "ATG"])) (of_string "ATG")
+  (consensus (from_list (List.map of_string \
+  ["ATCCAGCT"; "GGGCAACT"; "ATGGATCT"; "AAGCAACC"; \
+  "TTGGAACT"; "ATGCCATT"; "ATGGCACT"]))) (of_string "ATGCAACT")
+*)
+
+(*$>*)
+
 let comp = map Nt.comp
 
 (*$= comp
