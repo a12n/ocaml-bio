@@ -1,6 +1,8 @@
 open BatPervasives
 
 module Nt = struct
+  (*$< Nt *)
+
   type nt = A | C | G | U and t = nt
 
   let n = 4
@@ -32,6 +34,15 @@ module Nt = struct
     | C -> 0b01
     | G -> 0b11
     | U -> 0b00
+
+  (*$Q of_int
+    (QCheck.oneofl [A; C; G; U]) (fun nt -> of_int (to_int nt) = nt)
+  *)
+  (*$Q of_char
+    (QCheck.oneofl [A; C; G; U]) (fun nt -> of_char (to_char nt) = nt)
+  *)
+
+  (*$>*)
 end
 
 include Seq.Make (Nt)
