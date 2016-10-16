@@ -53,6 +53,12 @@ module Nt = struct
     (QCheck.oneofl [A; C; G; T]) (fun nt -> of_char (to_char nt) = nt)
   *)
 
+  let transcribe = function
+    | T -> Rna.Nt.U
+    | C -> Rna.Nt.C
+    | A -> Rna.Nt.A
+    | G -> Rna.Nt.G
+
   (*$>*)
 end
 
@@ -182,13 +188,7 @@ let rev_comp = rev % comp
   (rev_comp (of_string "gattaca")) (of_string "tgtaatc")
 *)
 
-let transcribe =
-  Rna.of_enum % Batteries.Enum.map (
-    function Nt.A -> Rna.Nt.A
-           | Nt.C -> Rna.Nt.C
-           | Nt.G -> Rna.Nt.G
-           | Nt.T -> Rna.Nt.U
-  ) % enum
+let transcribe = Rna.of_enum % Batteries.Enum.map Nt.transcribe % enum
 
 (*$= transcribe
   (transcribe (of_string "")) (Rna.of_string "")
