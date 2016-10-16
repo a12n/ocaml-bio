@@ -48,5 +48,9 @@ module Make : functor (Elt : Elt_sig) -> sig
   (** Position frequency matrix. *)
   module Pfm : sig
     type t = private int array array
+
+    val from_array : seq array -> t
+    val from_enum : seq Enum.t -> t
+    val from_list : seq list -> t
   end
 end

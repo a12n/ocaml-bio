@@ -165,5 +165,24 @@ module Make (Elt : Elt_sig) = struct
 
   module Pfm = struct
     type t = int array array
+
+    let from_enum enum =
+      let n = match Enum.peek enum with
+        | Some s0 -> length s0
+        | None -> invalid_arg "Seq.Pfm.from_enum: empty enum of sequences" in
+      let ans = Array.make_matrix Elt.n n 0 in
+      Enum.iter (fun t ->
+          if length t <> n then
+            invalid_arg "Seq.Pfm.from_enum: sequence length mismatch";
+          iteri (fun j elt ->
+              let i = Elt.to_int elt in
+              ans.(i).(j) <- ans.(i).(j) + 1
+            ) t
+        ) enum;
+      ans
+
+    let from_array = from_enum % Array.enum
+
+    let from_list = from_enum % List.enum
   end
 end
