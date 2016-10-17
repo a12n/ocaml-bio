@@ -1,4 +1,5 @@
-open Batteries
+#use "topfind";;
+#require "batteries";;
 
 open Batteries;;
 
