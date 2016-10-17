@@ -144,6 +144,19 @@ include Seq.Make (Nt)
 
 (*$>*)
 
+(*$< Align *)
+
+(*$= global
+  (global (of_string "") (of_string "")) \
+  (0, [])
+
+  (global (of_string "gattaca") (of_string "atg")) \
+  (-2, Nt.[`Delete G; `Match A; `Match T; \
+  `Subst (T, G); `Delete A; `Delete C; `Delete A])
+*)
+
+(*$>*)
+
 let comp = map Nt.comp
 
 (*$= comp
