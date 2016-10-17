@@ -59,6 +59,21 @@ module Make : functor (Elt : Elt_sig) -> sig
   end
 
   module Align : sig
+    module Scoring : sig
+      (** Scoring is [(gap, subst, better)] triplet.
+          Function [subst a b] must return score of replacing [a]
+          with [b].
+          Function [better s t] must return [true] iff score [s] is
+          better than score [t]. *)
+      type t =
+        [ `Linear of int ] *
+        (Elt.t -> Elt.t -> int) *
+        (int -> int -> bool)
+        (* (int -> int -> int) *)
+
+      val default : t
+    end
+
     (** Alignment of sequences [s] and [t] is represented as a list of
         edit operations, needed to transform [s] into [t]. *)
     type t = [ `Delete of Elt.t | `Insert of Elt.t |

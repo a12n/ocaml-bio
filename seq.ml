@@ -201,6 +201,18 @@ module Make (Elt : Elt_sig) = struct
 
 
   module Align = struct
+    module Scoring = struct
+      type t =
+        [ `Linear of int ] *
+        (Elt.t -> Elt.t -> int) *
+        (int -> int -> bool)
+
+      let default =
+        `Linear (-1),
+        (fun a b -> if a = b then 1 else 0),
+        (>)
+    end
+
     type t = [ `Delete of Elt.t | `Insert of Elt.t
              | `Match of Elt.t | `Subst of Elt.t * Elt.t ] list
   end
