@@ -198,4 +198,10 @@ module Make (Elt : Elt_sig) = struct
 
     let from_list = from_enum % List.enum
   end
+
+
+  module Align = struct
+    type t = [ `Delete of Elt.t | `Insert of Elt.t
+             | `Match of Elt.t | `Subst of Elt.t * Elt.t ] list
+  end
 end

@@ -57,4 +57,11 @@ module Make : functor (Elt : Elt_sig) -> sig
 
     val consensus : t -> seq
   end
+
+  module Align : sig
+    (** Alignment of sequences [s] and [t] is represented as a list of
+        edit operations, needed to transform [s] into [t]. *)
+    type t = [ `Delete of Elt.t | `Insert of Elt.t |
+               `Match of Elt.t | `Subst of Elt.t * Elt.t ] list
+  end
 end
