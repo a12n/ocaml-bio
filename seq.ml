@@ -216,6 +216,27 @@ module Make (Elt : Elt_sig) = struct
     type t = [ `Delete of Elt.t | `Insert of Elt.t
              | `Match of Elt.t | `Subst of Elt.t * Elt.t ] list
 
+    let backtrack x y b =
+      let rec loop ans i j =
+        match b.(i).(j) with
+        | `Up ->
+          let xi = get x (i - 1) in
+          let op = `Delete xi in
+          loop (op :: ans) (i - 1) j
+        | `Diag ->
+          let xi = get x (i - 1) in
+          let yj = get y (j - 1) in
+          let op =
+            if xi = yj then `Match xi
+            else `Subst (xi, yj) in
+          loop (op :: ans) (i - 1) (j - 1)
+        | `Left ->
+          let yj = get y (j - 1) in
+          let op = `Insert yj in
+          loop (op :: ans) i (j - 1)
+        | `Stop -> ans in
+      loop []
+
     let global_build ?(scoring=Scoring.default) x y =
       let `Linear gap, subst, better = scoring in
       let n = length x in
