@@ -272,5 +272,9 @@ module Make (Elt : Elt_sig) = struct
         done
       done;
       s.(n).(m), b, (n, m)
+
+    let global ?scoring x y =
+      let score, b, (i, j) = global_build ?scoring x y in
+      score, backtrack x y b i j
   end
 end

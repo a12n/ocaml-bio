@@ -78,5 +78,7 @@ module Make : functor (Elt : Elt_sig) -> sig
         edit operations, needed to transform [s] into [t]. *)
     type t = [ `Delete of Elt.t | `Insert of Elt.t |
                `Match of Elt.t | `Subst of Elt.t * Elt.t ] list
+
+    val global : ?scoring:Scoring.t -> seq -> seq -> int * t
   end
 end
