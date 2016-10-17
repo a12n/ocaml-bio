@@ -19,7 +19,7 @@ test: dna_tests.${TARGET} prot_tests.${TARGET} rna_tests.${TARGET}
 	done
 
 utop: lib
-	utop -I _build -safe-string
+	utop -I _build -init utop_init.ml -safe-string
 
 
 %.byte: %.ml
