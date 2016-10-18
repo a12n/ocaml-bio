@@ -4,7 +4,7 @@ OCAMLBUILD_FLAGS += -use-ocamlfind
 LIB = bio
 TARGET ?= byte
 
-.PHONY: clean lib lib-byte lib-native test utop
+.PHONY: clean install lib lib-byte lib-native test uninstall utop
 
 lib: lib-byte lib-native
 
@@ -30,6 +30,19 @@ test:	\
 
 utop: lib-byte
 	utop -I _build -init utop_init.ml -safe-string
+
+install: lib
+	ocamlfind install ${LIB}	\
+		*.mli	\
+		META	\
+		_build/*.a	\
+		_build/*.cma	\
+		_build/*.cmi	\
+		_build/*.cmx	\
+		_build/*.cmxa
+
+uninstall:
+	ocamlfind remove ${LIB}
 
 
 %.byte: %.ml
