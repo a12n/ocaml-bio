@@ -4,10 +4,15 @@ OCAMLBUILD_FLAGS += -use-ocamlfind
 LIB = bio
 TARGET ?= byte
 
-.PHONY: clean lib test utop
+.PHONY: clean lib lib-byte lib-native test utop
 
-lib:
+lib: lib-byte lib-native
+
+lib-byte:
 	ocamlbuild ${OCAMLBUILD_FLAGS} ${LIB}.cma
+
+lib-native:
+	ocamlbuild ${OCAMLBUILD_FLAGS} ${LIB}.cmxa
 
 clean:
 	ocamlbuild ${OCAMLBUILD_FLAGS} -clean
@@ -23,7 +28,7 @@ test:	\
 		./$$test --slow 5;	\
 	done
 
-utop: lib
+utop: lib-byte
 	utop -I _build -init utop_init.ml -safe-string
 
 
