@@ -1,12 +1,13 @@
 OCAMLBUILD_FLAGS =
 OCAMLBUILD_FLAGS += -use-ocamlfind
 
+LIB = bio
 TARGET ?= byte
 
 .PHONY: clean lib test utop
 
 lib:
-	ocamlbuild ${OCAMLBUILD_FLAGS} bio.cma
+	ocamlbuild ${OCAMLBUILD_FLAGS} ${LIB}.cma
 
 clean:
 	ocamlbuild ${OCAMLBUILD_FLAGS} -clean
