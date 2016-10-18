@@ -9,3 +9,4 @@ val mass : t -> float
 val name : t -> string
 
 val blosum62 : t -> t -> int
+val pam250 : t -> t -> int
