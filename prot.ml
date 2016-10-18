@@ -18,6 +18,13 @@ include Seq.Make (Aa)
 
 *)
 
+(*$= local
+  (let scoring = `Linear (-5), Aa.pam250, (>) in \
+  (local ~scoring (of_string "MEANLYPRTEINSTRING") (of_string "PLEASANTLYEINSTEIN"))) \
+  (23, Aa.[`Match L; `Match Y; `Delete P; `Delete R; `Delete T; `Match E; \
+  `Match I; `Match N; `Match S; `Match T; `Subst (R, E); `Match I; `Match N])
+*)
+
 (*$>*)
 
 let mass_aux f = fold_left (fun ans aa -> ans +. f aa) 0.0
