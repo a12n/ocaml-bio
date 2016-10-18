@@ -1,0 +1,18 @@
+opam-version: "1.2"
+name: "bio"
+version: "0.0.1"
+maintainer: "Anton Yabchinskiy"
+authors: "Anton Yabchinskiy"
+homepage: "https://bitbucket.org/a12n/ocaml-bio/"
+bug-reports: "https://bitbucket.org/a12n/ocaml-bio/issues/"
+license: "MIT"
+dev-repo: "https://bitbucket.org/a12n/ocaml-bio/"
+build: [make]
+build-test: [make "test"]
+install: [make "install"]
+remove: [make "uninstall"]
+depends: [
+  "batteries"
+  "ocamlfind" {build}
+  "qtest" {test}
+]
