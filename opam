@@ -17,3 +17,6 @@ depends: [
   "ocamlfind" {build}
   "qtest" {test}
 ]
+available: [
+  ocaml-version >= "4.02.0"
+]
