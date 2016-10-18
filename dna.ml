@@ -155,6 +155,14 @@ include Seq.Make (Nt)
   `Subst (T, G); `Delete A; `Delete C; `Delete A])
 *)
 
+(*$= local
+  (local (of_string "") (of_string "")) \
+  (0, [])
+
+  (local (of_string "gattaca") (of_string "atg")) \
+  (2, Nt.[`Match A; `Match T; `Subst (T, G)])
+*)
+
 (*$>*)
 
 let comp = map Nt.comp
