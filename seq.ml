@@ -217,6 +217,22 @@ module Make (Elt : Elt_sig) = struct
              | `Match of Elt.t | `Subst of Elt.t * Elt.t ] list
 
 
+    let print_tables s b =
+      let n = Array.length s in
+      let m = Array.length s.(0) in
+      for i = 0 to n - 1 do
+        for j = 0 to m - 1 do
+          Printf.eprintf " %2d%s" s.(i).(j)
+            (match b.(i).(j) with
+             | `Up   -> "↑"
+             | `Diag -> "↖"
+             | `Left -> "←"
+             | `Stop -> " ")
+        done;
+        prerr_newline ()
+      done
+
+
     let backtrack x y b =
       let rec loop ans i j =
         match b.(i).(j) with
