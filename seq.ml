@@ -296,8 +296,10 @@ module Make (Elt : Elt_sig) = struct
           let diag = s.(i - 1).(j - 1) + subst xi yj in
           let left = s.(i).(j - 1) + gap in
           (* Counterclockwise selection policy *)
-          s.(i).(j) <- up;
-          b.(i).(j) <- `Up;
+          if better up s.(i).(j) then (
+            s.(i).(j) <- up;
+            b.(i).(j) <- `Up;
+          );
           if better diag s.(i).(j) then (
             s.(i).(j) <- diag;
             b.(i).(j) <- `Diag
