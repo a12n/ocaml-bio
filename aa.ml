@@ -229,3 +229,13 @@ let blosum62 =
     [|  0; -3; -3; -3; -1; -2; -2; -3; -3;  3;  1; -2;  1; -1; -2; -2;  0; -3; -1;  4 |]
   |] in
   fun x y -> t.(to_int x).(to_int y)
+
+(*$= blosum62
+  (blosum62 L S) (-2)
+  (blosum62 A G) 0
+  (blosum62 D N) 1
+  (blosum62 V D) (-3)
+  (blosum62 V I) 3
+  (blosum62 P F) (-4)
+  (blosum62 P Q) (-1)
+*)
