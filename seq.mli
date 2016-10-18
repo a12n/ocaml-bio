@@ -81,5 +81,7 @@ module Make : functor (Elt : Elt_sig) -> sig
 
     val global : ?scoring:Scoring.t -> seq -> seq -> int * t
     val local : ?scoring:Scoring.t -> seq -> seq -> int * t
+
+    val to_string : t -> string * string
   end
 end

@@ -321,5 +321,30 @@ module Make (Elt : Elt_sig) = struct
     let local ?scoring x y =
       let score, b, (i, j) = local_build ?scoring x y in
       score, backtrack x y b i j
+
+
+    let to_string ops =
+      let x = Buffer.create 512 in
+      let y = Buffer.create 512 in
+      let rec loop = function
+        | [] -> Buffer.(contents x, contents y)
+        | `Delete xi :: ops ->
+          Buffer.(add_char x (Elt.to_char xi);
+                  add_char y '-');
+          loop ops
+        | `Insert yj :: ops ->
+          Buffer.(add_char x '-';
+                  add_char y (Elt.to_char yj));
+          loop ops
+        | `Match elt :: ops ->
+          let c = Elt.to_char elt in
+          Buffer.(add_char x c;
+                  add_char y c);
+          loop ops
+        | `Subst (xi, yj) :: ops ->
+          Buffer.(add_char x (Elt.to_char xi);
+                  add_char y (Elt.to_char yj));
+          loop ops in
+      loop ops
   end
 end
