@@ -315,5 +315,9 @@ module Make (Elt : Elt_sig) = struct
         done
       done;
       !best_s, b, !best_ij
+
+    let local ?scoring x y =
+      let score, b, (i, j) = local_build ?scoring x y in
+      score, backtrack x y b i j
   end
 end

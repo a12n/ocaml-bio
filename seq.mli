@@ -80,5 +80,6 @@ module Make : functor (Elt : Elt_sig) -> sig
                `Match of Elt.t | `Subst of Elt.t * Elt.t ] list
 
     val global : ?scoring:Scoring.t -> seq -> seq -> int * t
+    val local : ?scoring:Scoring.t -> seq -> seq -> int * t
   end
 end
