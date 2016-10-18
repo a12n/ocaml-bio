@@ -339,6 +339,81 @@ module Make (Elt : Elt_sig) = struct
       score, backtrack x y b i j
 
 
+    let semi_global_build ?(scoring=Scoring.default) x y =
+      let `Linear gap, subst, better = scoring in
+      let n = length x in
+      let m = length y in
+      let s = Array.make_matrix (n + 1) (m + 1) 0 in
+      let b = Array.make_matrix (n + 1) (m + 1) `Stop in
+      if n > m then begin
+        for i = 1 to n do
+          b.(i).(0) <- `Up
+        done;
+        for j = 1 to m do
+          s.(0).(j) <- j * gap;
+          b.(0).(j) <- `Left
+        done
+      end else begin
+        for j = 1 to m do
+          b.(0).(j) <- `Left
+        done;
+        for i = 1 to n do
+          s.(i).(0) <- i * gap;
+          b.(i).(0) <- `Up
+        done;
+      end;
+      for i = 1 to n do
+        let xi = get x (i - 1) in
+        for j = 1 to m do
+          let yj = get y (j - 1) in
+          let up = s.(i - 1).(j) + gap in
+          let diag = s.(i - 1).(j - 1) + subst xi yj in
+          let left = s.(i).(j - 1) + gap in
+          (* Counterclockwise selection policy *)
+          s.(i).(j) <- up;
+          b.(i).(j) <- `Up;
+          if better diag s.(i).(j) then (
+            s.(i).(j) <- diag;
+            b.(i).(j) <- `Diag
+          );
+          if better left s.(i).(j) then (
+            s.(i).(j) <- left;
+            b.(i).(j) <- `Left
+          )
+        done
+      done;
+      let best_ij = ref (n, m) in
+      let best_s = ref s.(n).(m) in
+      if n > m then begin
+        for i = 1 to n do
+          if not (better !best_s s.(i).(m)) then (
+            best_ij := (i, m);
+            best_s := s.(i).(m)
+          )
+        done;
+        for i = n downto (fst !best_ij) + 1 do
+          b.(i).(m) <- `Up
+        done
+      end else begin
+        for j = 1 to m do
+          if not (better !best_s s.(n).(j)) then (
+            best_ij := (n, j);
+            best_s := s.(n).(j)
+          )
+        done;
+        for j = m downto (snd !best_ij) + 1 do
+          b.(n).(j) <- `Left
+        done
+      end;
+      print_tables s b;
+      Printf.eprintf "%d,%d\n%!" (fst !best_ij) (snd !best_ij);
+      !best_s, b, (n, m)
+
+    let semi_global ?scoring x y =
+      let score, b, (i, j) = semi_global_build ?scoring x y in
+      score, backtrack x y b i j
+
+
     let to_string ops =
       let x = Buffer.create 512 in
       let y = Buffer.create 512 in
