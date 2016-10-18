@@ -216,6 +216,7 @@ module Make (Elt : Elt_sig) = struct
     type t = [ `Delete of Elt.t | `Insert of Elt.t
              | `Match of Elt.t | `Subst of Elt.t * Elt.t ] list
 
+
     let backtrack x y b =
       let rec loop ans i j =
         match b.(i).(j) with
@@ -236,6 +237,7 @@ module Make (Elt : Elt_sig) = struct
           loop (op :: ans) i (j - 1)
         | `Stop -> ans in
       loop []
+
 
     let global_build ?(scoring=Scoring.default) x y =
       let `Linear gap, subst, better = scoring in
