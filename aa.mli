@@ -7,3 +7,5 @@ val abbr : t -> string
 val avg_mass : t -> float
 val mass : t -> float
 val name : t -> string
+
+val blosum62 : t -> t -> int
