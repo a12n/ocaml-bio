@@ -9,6 +9,17 @@ include Seq.Make (Aa)
   (edit_dist (of_string "PLEASANTLY") (of_string "MEANLY")) 5
 *)
 
+(*$< Align *)
+
+(*$= global
+  (global (of_string "PRETTY") (of_string "PRTTEIN")) \
+  (2, Aa.[`Match P; `Match R; `Subst (E, T); `Match T; \
+  `Insert E; `Subst (T, I); `Subst (Y, N)])
+
+*)
+
+(*$>*)
+
 let mass_aux f = fold_left (fun ans aa -> ans +. f aa) 0.0
 
 let avg_mass = mass_aux Aa.avg_mass
