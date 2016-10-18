@@ -278,5 +278,42 @@ module Make (Elt : Elt_sig) = struct
     let global ?scoring x y =
       let score, b, (i, j) = global_build ?scoring x y in
       score, backtrack x y b i j
+
+
+    let local_build ?(scoring=Scoring.default) x y =
+      let `Linear gap, subst, better = scoring in
+      let n = length x in
+      let m = length y in
+      let s = Array.make_matrix (n + 1) (m + 1) 0 in
+      let b = Array.make_matrix (n + 1) (m + 1) `Stop in
+      let best_ij = ref (0, 0) in
+      let best_s = ref 0 in
+      for i = 1 to n do
+        let xi = get x (i - 1) in
+        for j = 1 to m do
+          let yj = get y (j - 1) in
+          let up = s.(i - 1).(j) + gap in
+          let diag = s.(i - 1).(j - 1) + subst xi yj in
+          let left = s.(i).(j - 1) + gap in
+          (* Counterclockwise selection policy *)
+          s.(i).(j) <- up;
+          b.(i).(j) <- `Up;
+          if better diag s.(i).(j) then (
+            s.(i).(j) <- diag;
+            b.(i).(j) <- `Diag
+          );
+          if better left s.(i).(j) then (
+            s.(i).(j) <- left;
+            b.(i).(j) <- `Left
+          );
+          (* If new score is as best so far, consider new score the
+             best, to maximize alignment length. *)
+          if not (better !best_s s.(i).(j)) then (
+            best_ij := (i, j);
+            best_s := s.(i).(j)
+          )
+        done
+      done;
+      !best_s, b, !best_ij
   end
 end
