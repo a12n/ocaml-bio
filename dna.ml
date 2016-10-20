@@ -64,6 +64,19 @@ end
 
 include Seq.Make (Nt)
 
+(*$T find_sub
+  (Batteries.List.of_enum (find_sub (of_string "") (of_string "atg"))) = []
+  (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string "ac"))) = [4]
+  try (Batteries.List.of_enum (find_sub (of_string "") (of_string ""))); false with (Invalid_argument _) -> true
+  try (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string ""))); false with (Invalid_argument _) -> true
+*)
+
+(*$= find_elt
+  (Batteries.List.of_enum (find_elt (of_string "") Nt.A)) []
+  (Batteries.List.of_enum (find_elt (of_string "cccc") Nt.C)) [0; 1; 2; 3]
+  (Batteries.List.of_enum (find_elt (of_string "gattaca") Nt.A)) [1; 4; 6]
+*)
+
 (*$= get
   (get (of_string "gattaca") 0) Nt.G
   (get (of_string "gattaca") 1) Nt.A
