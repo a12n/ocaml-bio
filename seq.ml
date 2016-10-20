@@ -31,6 +31,15 @@ module Make (Elt : Elt_sig) = struct
   let to_string seq = seq
 
 
+  let find_elt seq elt =
+    let c = Elt.to_char elt in
+    Enum.from_loop 0 (fun start ->
+        match String.index_from seq start c with
+        | i -> i, i + 1
+        | exception (Invalid_argument _) -> raise Enum.No_more_elements
+        | exception Not_found -> raise Enum.No_more_elements
+      )
+
   let get seq i = Elt.of_char (String.get seq i)
 
   let is_empty = String.is_empty
