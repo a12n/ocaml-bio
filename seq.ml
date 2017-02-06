@@ -213,15 +213,9 @@ module Make (Elt : Elt_sig) = struct
 
   module Align = struct
     module Scoring = struct
-      type t =
-        [ `Linear of int ] *
-        (Elt.t -> Elt.t -> int) *
-        (int -> int -> bool)
+      type t = [ `Linear of int ] * (Elt.t -> Elt.t -> int)
 
-      let default =
-        `Linear (-1),
-        (fun a b -> if a = b then 1 else 0),
-        (>)
+      let default = `Linear (-1), (fun a b -> if a = b then 1 else 0)
     end
 
     type t = [ `Delete of Elt.t | `Insert of Elt.t
@@ -267,7 +261,7 @@ module Make (Elt : Elt_sig) = struct
 
 
     let global_build ?(scoring=Scoring.default) x y =
-      let `Linear gap, subst, better = scoring in
+      let `Linear gap, subst = scoring in
       let n = length x in
       let m = length y in
       let s = Array.make_matrix (n + 1) (m + 1) 0 in
@@ -290,11 +284,11 @@ module Make (Elt : Elt_sig) = struct
           (* Counterclockwise selection policy *)
           s.(i).(j) <- up;
           b.(i).(j) <- `Up;
-          if better diag s.(i).(j) then (
+          if diag > s.(i).(j) then (
             s.(i).(j) <- diag;
             b.(i).(j) <- `Diag
           );
-          if better left s.(i).(j) then (
+          if left > s.(i).(j) then (
             s.(i).(j) <- left;
             b.(i).(j) <- `Left
           )
@@ -308,7 +302,7 @@ module Make (Elt : Elt_sig) = struct
 
 
     let local_build ?(scoring=Scoring.default) x y =
-      let `Linear gap, subst, better = scoring in
+      let `Linear gap, subst = scoring in
       let n = length x in
       let m = length y in
       let s = Array.make_matrix (n + 1) (m + 1) 0 in
@@ -323,21 +317,21 @@ module Make (Elt : Elt_sig) = struct
           let diag = s.(i - 1).(j - 1) + subst xi yj in
           let left = s.(i).(j - 1) + gap in
           (* Counterclockwise selection policy *)
-          if better up s.(i).(j) then (
+          if up > s.(i).(j) then (
             s.(i).(j) <- up;
             b.(i).(j) <- `Up;
           );
-          if better diag s.(i).(j) then (
+          if diag > s.(i).(j) then (
             s.(i).(j) <- diag;
             b.(i).(j) <- `Diag
           );
-          if better left s.(i).(j) then (
+          if left > s.(i).(j) then (
             s.(i).(j) <- left;
             b.(i).(j) <- `Left
           );
           (* If new score is as best so far, consider new score the
              best, to maximize alignment length. *)
-          if not (better !best_s s.(i).(j)) then (
+          if not (!best_s > s.(i).(j)) then (
             best_ij := (i, j);
             best_s := s.(i).(j)
           )
@@ -351,7 +345,7 @@ module Make (Elt : Elt_sig) = struct
 
 
     let semi_global_build ?(scoring=Scoring.default) x y =
-      let `Linear gap, subst, better = scoring in
+      let `Linear gap, subst = scoring in
       let n = length x in
       let m = length y in
       let s = Array.make_matrix (n + 1) (m + 1) 0 in
@@ -383,11 +377,11 @@ module Make (Elt : Elt_sig) = struct
           (* Counterclockwise selection policy *)
           s.(i).(j) <- up;
           b.(i).(j) <- `Up;
-          if better diag s.(i).(j) then (
+          if diag > s.(i).(j) then (
             s.(i).(j) <- diag;
             b.(i).(j) <- `Diag
           );
-          if better left s.(i).(j) then (
+          if left > s.(i).(j) then (
             s.(i).(j) <- left;
             b.(i).(j) <- `Left
           )
@@ -397,7 +391,7 @@ module Make (Elt : Elt_sig) = struct
       let best_s = ref s.(n).(m) in
       if n > m then begin
         for i = 1 to n do
-          if not (better !best_s s.(i).(m)) then (
+          if not (!best_s > s.(i).(m)) then (
             best_ij := (i, m);
             best_s := s.(i).(m)
           )
@@ -407,7 +401,7 @@ module Make (Elt : Elt_sig) = struct
         done
       end else begin
         for j = 1 to m do
-          if not (better !best_s s.(n).(j)) then (
+          if not (!best_s > s.(n).(j)) then (
             best_ij := (n, j);
             best_s := s.(n).(j)
           )
