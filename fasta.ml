@@ -50,6 +50,8 @@ module Make (Seq : Seq_sig) = struct
         (id, descr, Seq.of_string str))
       (from_enum (IO.chars_of ch))
 
+  let from_file fname = File.with_file_in fname from_input
+
   let to_output ch =
     Enum.iter (fun (id, descr, seq) ->
         Char.print ch '>';
@@ -64,6 +66,8 @@ module Make (Seq : Seq_sig) = struct
             loop (i + 1) in
         loop 0
       )
+
+  let to_file fname = File.with_file_out fname to_output
 end
 
 module Dna = Make (Dna)
