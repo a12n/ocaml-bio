@@ -2,7 +2,7 @@ open Batteries
 
 module type Seq_sig = sig
   type t
-  val is_empty : t -> bool
+  val length : t -> int
   val of_string : string -> t
   val sub : t -> start:int -> len:int -> t
   val to_string : t -> string

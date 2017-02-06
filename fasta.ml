@@ -2,7 +2,7 @@ open Batteries
 
 module type Seq_sig = sig
   type t
-  val is_empty : t -> bool
+  val length : t -> int
   val of_string : string -> t
   val sub : t -> start:int -> len:int -> t
   val to_string : t -> string
@@ -58,13 +58,13 @@ module Make (Seq : Seq_sig) = struct
         String.print ch id;
         Char.print ch ' ';
         String.println ch descr;
-        let rec loop i =
-          match Seq.sub seq ~start:(i * 80) ~len:80 with
-          | s when Seq.is_empty s -> ()
-          | s ->
-            String.println ch (Seq.to_string s);
-            loop (i + 1) in
-        loop 0
+        let rec loop i = function
+          | 0 -> ()
+          | n ->
+            let len = if n > 80 then 80 else n in
+            String.println ch Seq.(to_string (sub seq ~start:(i * 80) ~len));
+            loop (i + 1) (n - len) in
+        loop 0 (Seq.length seq)
       )
 
   let to_file fname = File.with_file_out fname to_output
