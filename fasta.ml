@@ -69,9 +69,3 @@ end
 module Dna = Make (Dna)
 module Prot = Make (Prot)
 module Rna = Make (Rna)
-
-(*$< Dna *)
-(*$= from_string2
-  (from_string2 "" |> List.of_enum) []
-*)
-(*$>*)
