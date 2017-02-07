@@ -1,1 +1,1 @@
-module Bio = Bio_seq
+module Seq = Bio_seq
