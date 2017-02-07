@@ -19,6 +19,6 @@ module Make : functor (Seq : Seq_sig) -> sig
   val to_output : 'a IO.output -> Entry.t Enum.t -> unit
 end
 
-module Dna : module type of Make (Dna)
-module Prot : module type of Make (Prot)
-module Rna : module type of Make (Rna)
+module Dna : module type of Make (Bio_dna)
+module Prot : module type of Make (Bio_prot)
+module Rna : module type of Make (Bio_rna)

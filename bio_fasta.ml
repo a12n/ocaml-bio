@@ -75,6 +75,6 @@ module Make (Seq : Seq_sig) = struct
     to_output f
 end
 
-module Dna = Make (Dna)
-module Prot = Make (Prot)
-module Rna = Make (Rna)
+module Dna = Make (Bio_dna)
+module Prot = Make (Bio_prot)
+module Rna = Make (Bio_rna)
