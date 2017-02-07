@@ -67,8 +67,12 @@ include Bio_seq.Make (Nt)
 (*$T find_sub
   (Batteries.List.of_enum (find_sub (of_string "") (of_string "atg"))) = []
   (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string "ac"))) = [4]
-  try (Batteries.List.of_enum (find_sub (of_string "") (of_string ""))); false with (Invalid_argument _) -> true
-  try (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string ""))); false with (Invalid_argument _) -> true
+
+  try ignore (Batteries.List.of_enum (find_sub (of_string "") (of_string ""))); \
+  false with (Invalid_argument _) -> true
+
+  try ignore (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string ""))); \
+  false with (Invalid_argument _) -> true
 *)
 
 (*$= find_elt
@@ -237,8 +241,8 @@ let rev_comp = rev % comp
 let transcribe = Bio_rna.of_enum % Batteries.Enum.map Nt.transcribe % enum
 
 (*$= transcribe
-  (transcribe (of_string "")) (Rna.of_string "")
-  (transcribe (of_string "gattaca")) (Rna.of_string "gauuaca")
+  (transcribe (of_string "")) (Bio_rna.of_string "")
+  (transcribe (of_string "gattaca")) (Bio_rna.of_string "gauuaca")
 *)
 
 module Ambig = struct
