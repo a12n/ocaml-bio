@@ -8,38 +8,6 @@ module type Seq_sig = sig
   val to_string : t -> string
 end
 
-let from_enum chars =
-  let id = Buffer.create 64 in
-  let descr = Buffer.create 64 in
-  let str = Buffer.create 1024 in
-  let rec parse_start () =
-    Buffer.(clear id; clear descr; clear str);
-    match Enum.get chars with
-    | Some '>' -> parse_id ()
-    | Some _ -> failwith "not '>' symbol"
-    | None -> raise Enum.No_more_elements
-  and parse_id () =
-    match Enum.get chars with
-    | Some ' ' | Some '\t' -> parse_descr ()
-    | Some '\n' -> parse_str ()
-    | Some c -> (Buffer.add_char id c; parse_id ())
-    | None -> failwith "end of input"
-  and parse_descr () =
-    match Enum.get chars with
-    | Some '\n' -> parse_str ()
-    | Some c -> (Buffer.add_char descr c; parse_descr ())
-    | None -> failwith "end of input"
-  and parse_str () =
-      match Enum.peek chars with
-        | Some '\n' -> (Enum.junk chars; parse_str ())
-        | Some '>' | None -> Buffer.(contents id,
-                                     contents descr,
-                                     contents str)
-        | Some c -> (Enum.junk chars;
-                     Buffer.add_char str c;
-                     parse_str ())
-  in Enum.from parse_start
-
 let from_lines lines =
   let id_buf, descr_buf, str_buf =
     Buffer.(create 64, create 64, create 1024) in
