@@ -67,8 +67,12 @@ include Bio_seq.Make (Nt)
 (*$T find_sub
   (Batteries.List.of_enum (find_sub (of_string "") (of_string "atg"))) = []
   (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string "ac"))) = [4]
-  try (Batteries.List.of_enum (find_sub (of_string "") (of_string ""))); false with (Invalid_argument _) -> true
-  try (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string ""))); false with (Invalid_argument _) -> true
+
+  try ignore (Batteries.List.of_enum (find_sub (of_string "") (of_string ""))); \
+  false with (Invalid_argument _) -> true
+
+  try ignore (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string ""))); \
+  false with (Invalid_argument _) -> true
 *)
 
 (*$= find_elt
