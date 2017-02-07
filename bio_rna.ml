@@ -1,4 +1,4 @@
-open BatPervasives
+open Batteries
 
 module Nt = struct
   (*$< Nt *)

@@ -1,4 +1,4 @@
-open BatPervasives
+open Batteries
 
 include Bio_seq.Make (Bio_aa)
 

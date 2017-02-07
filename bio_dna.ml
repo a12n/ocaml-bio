@@ -1,4 +1,4 @@
-open BatPervasives
+open Batteries
 
 module type Nt_sig = sig
   include Bio_seq.Elt_sig
