@@ -15,7 +15,7 @@ val gc_content : t -> float
 val num_trans : t -> t -> int
 val num_transv : t -> t -> int
 val rev_comp : t -> t
-val transcribe : t -> Rna.t
+val transcribe : t -> Bio_rna.t
 
 module Ambig : sig
   module Nt : sig

@@ -54,10 +54,10 @@ module Nt = struct
   *)
 
   let transcribe = function
-    | T -> Rna.Nt.U
-    | C -> Rna.Nt.C
-    | A -> Rna.Nt.A
-    | G -> Rna.Nt.G
+    | T -> Bio_rna.Nt.U
+    | C -> Bio_rna.Nt.C
+    | A -> Bio_rna.Nt.A
+    | G -> Bio_rna.Nt.G
 
   (*$>*)
 end
@@ -234,7 +234,7 @@ let rev_comp = rev % comp
   (rev_comp (of_string "gattaca")) (of_string "tgtaatc")
 *)
 
-let transcribe = Rna.of_enum % Batteries.Enum.map Nt.transcribe % enum
+let transcribe = Bio_rna.of_enum % Batteries.Enum.map Nt.transcribe % enum
 
 (*$= transcribe
   (transcribe (of_string "")) (Rna.of_string "")
