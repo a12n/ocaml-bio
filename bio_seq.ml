@@ -61,7 +61,7 @@ module Make (Elt : Elt_sig) = struct
 
   let fold_left2 f init s t =
     if length s <> length t then
-      invalid_arg "Seq.fold_left2";
+      invalid_arg "length mismatch";
     String.fold_lefti (fun ans i si ->
         f ans (Elt.of_char si) (Elt.of_char t.[i])
       ) init s
@@ -112,7 +112,7 @@ module Make (Elt : Elt_sig) = struct
     let n = length s in
     if length t = n then
       hamm_dist_aux s t n
-    else invalid_arg "Seq.hamm_dist"
+    else invalid_arg "length mismatch"
 
   let p_dist s t =
     let n = length s in
@@ -121,7 +121,7 @@ module Make (Elt : Elt_sig) = struct
         float_of_int (hamm_dist_aux s t n) /.
         float_of_int n
       else 0.0
-    else invalid_arg "Seq.p_dist"
+    else invalid_arg "length mismatch"
 
 
   let lcs s t =
@@ -193,11 +193,11 @@ module Make (Elt : Elt_sig) = struct
     let from_enum enum =
       let n = match Enum.peek enum with
         | Some s0 -> length s0
-        | None -> invalid_arg "Seq.Pfm.from_enum: empty enum of sequences" in
+        | None -> invalid_arg "empty enum of sequences" in
       let ans = Array.make_matrix Elt.n n 0 in
       Enum.iter (fun t ->
           if length t <> n then
-            invalid_arg "Seq.Pfm.from_enum: sequence length mismatch";
+            invalid_arg "sequence length mismatch";
           iteri (fun j elt ->
               let i = Elt.to_int elt in
               ans.(i).(j) <- ans.(i).(j) + 1

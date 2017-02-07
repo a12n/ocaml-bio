@@ -1,6 +1,6 @@
-open BatPervasives
+open Batteries
 
-include Seq.Make (Aa)
+include Bio_seq.Make (Bio_aa)
 
 (*$= edit_dist
   (edit_dist (of_string "") (of_string "MMM")) 3
@@ -29,6 +29,6 @@ include Seq.Make (Aa)
 
 let mass_aux f = fold_left (fun ans aa -> ans +. f aa) 0.0
 
-let avg_mass = mass_aux Aa.avg_mass
+let avg_mass = mass_aux Bio_aa.avg_mass
 
-let mass = mass_aux Aa.mass
+let mass = mass_aux Bio_aa.mass

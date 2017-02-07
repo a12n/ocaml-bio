@@ -1,12 +1,6 @@
-<aa.cmx>: for-pack(Bio)
-<dna.cmx>: for-pack(Bio)
-<fasta.cmx>: for-pack(Bio)
-<prot.cmx>: for-pack(Bio)
-<rna.cmx>: for-pack(Bio)
-<seq.cmx>: for-pack(Bio)
-
 <*_tests.*>: package(oUnit)
 <*_tests.*>: package(qcheck)
 
+true: no_alias_deps
 true: package(batteries)
 true: safe_string

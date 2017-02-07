@@ -1,5 +1,5 @@
 module type Nt_sig = sig
-  include Seq.Elt_sig
+  include Bio_seq.Elt_sig
   val comp : t -> t
 end
 
@@ -8,14 +8,14 @@ module Nt : sig
   include Nt_sig with type t = nt
 end
 
-include module type of Seq.Make (Nt)
+include module type of Bio_seq.Make (Nt)
 
 val comp : t -> t
 val gc_content : t -> float
 val num_trans : t -> t -> int
 val num_transv : t -> t -> int
 val rev_comp : t -> t
-val transcribe : t -> Rna.t
+val transcribe : t -> Bio_rna.t
 
 module Ambig : sig
   module Nt : sig
@@ -24,7 +24,7 @@ module Ambig : sig
     include Nt_sig with type t = nt
   end
 
-  include module type of Seq.Make (Nt)
+  include module type of Bio_seq.Make (Nt)
 
   val comp : t -> t
   val gc_content : t -> float

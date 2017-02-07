@@ -1,9 +1,9 @@
 module Nt : sig
   type nt = U | C | A | G
-  include Seq.Elt_sig with type t = nt
+  include Bio_seq.Elt_sig with type t = nt
 end
 
-include module type of Seq.Make (Nt)
+include module type of Bio_seq.Make (Nt)
 
 module Codon : sig
   type t = Nt.t * Nt.t * Nt.t
@@ -17,13 +17,13 @@ module Gen_code : sig
   module type Sig = sig
     val start_codons : Codon.t list
     val stop_codons : Codon.t list
-    val translate : Codon.t -> Aa.t option
+    val translate : Codon.t -> Bio_aa.t option
   end
 
   (** Standard. *)
   module Std : sig
     include Sig
-    val rev_translate : Aa.t -> Codon.t list
+    val rev_translate : Bio_aa.t -> Codon.t list
   end
 
   (** Vertebrate Mitochondrial. *)
@@ -48,4 +48,4 @@ val rfs : t -> Rf.t * Rf.t * Rf.t
 
 (** Translate reading frame to a protein string according to specified
     genetic code ([Gen_code.Std] is used by default). *)
-val translate : ?gen_code:(module Gen_code.Sig) -> Rf.t -> Prot.t
+val translate : ?gen_code:(module Gen_code.Sig) -> Rf.t -> Bio_prot.t

@@ -1,4 +1,4 @@
-open BatPervasives
+open Batteries
 
 module Nt = struct
   (*$< Nt *)
@@ -45,7 +45,7 @@ module Nt = struct
   (*$>*)
 end
 
-include Seq.Make (Nt)
+include Bio_seq.Make (Nt)
 
 module Codon = struct
   type t = Nt.t * Nt.t * Nt.t
@@ -59,9 +59,10 @@ module Gen_code = struct
   module type Sig = sig
     val start_codons : Codon.t list
     val stop_codons : Codon.t list
-    val translate : Codon.t -> Aa.t option
+    val translate : Codon.t -> Bio_aa.t option
   end
 
+  module Aa = Bio_aa
   open Nt
 
   let find_stop_codons translate =
@@ -269,7 +270,7 @@ let translate ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
   let module Gen_code = (val gen_code : Gen_code.Sig) in
   let open Batteries in
   Enum.from_while (fun () -> Option.bind (Enum.get rf) Gen_code.translate) |>
-  Prot.of_enum
+  Bio_prot.of_enum
 
 (*$= translate
   (translate (codons (of_string "AUGAAAAAUAAGUUUAAAACCCAGGAAGAGUGA"))) (Prot.of_string "MKNKFKTQEE")
