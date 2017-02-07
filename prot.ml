@@ -1,6 +1,6 @@
 open BatPervasives
 
-include Seq.Make (Aa)
+include Bio_seq.Make (Aa)
 
 (*$= edit_dist
   (edit_dist (of_string "") (of_string "MMM")) 3

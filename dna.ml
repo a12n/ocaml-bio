@@ -1,7 +1,7 @@
 open BatPervasives
 
 module type Nt_sig = sig
-  include Seq.Elt_sig
+  include Bio_seq.Elt_sig
   val comp : t -> t
 end
 
@@ -62,7 +62,7 @@ module Nt = struct
   (*$>*)
 end
 
-include Seq.Make (Nt)
+include Bio_seq.Make (Nt)
 
 (*$T find_sub
   (Batteries.List.of_enum (find_sub (of_string "") (of_string "atg"))) = []
@@ -342,7 +342,7 @@ module Ambig = struct
       | N -> (to_int A) lor (to_int C) lor (to_int G) lor (to_int T)
   end
 
-  include Seq.Make (Nt)
+  include Bio_seq.Make (Nt)
 
   let comp = map Nt.comp
 

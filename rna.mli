@@ -1,9 +1,9 @@
 module Nt : sig
   type nt = U | C | A | G
-  include Seq.Elt_sig with type t = nt
+  include Bio_seq.Elt_sig with type t = nt
 end
 
-include module type of Seq.Make (Nt)
+include module type of Bio_seq.Make (Nt)
 
 module Codon : sig
   type t = Nt.t * Nt.t * Nt.t
