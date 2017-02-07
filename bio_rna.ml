@@ -273,8 +273,8 @@ let translate ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
   Bio_prot.of_enum
 
 (*$= translate
-  (translate (codons (of_string "AUGAAAAAUAAGUUUAAAACCCAGGAAGAGUGA"))) (Prot.of_string "MKNKFKTQEE")
-  (translate (codons (of_string "UAG"))) (Prot.of_string "")
-  (translate (Batteries.List.enum Nt.[A,U,G])) (Prot.of_string "M")
-  (translate (Batteries.Enum.empty ())) (Prot.of_string "")
+  (translate (codons (of_string "AUGAAAAAUAAGUUUAAAACCCAGGAAGAGUGA"))) (Bio_prot.of_string "MKNKFKTQEE")
+  (translate (codons (of_string "UAG"))) (Bio_prot.of_string "")
+  (translate (Batteries.List.enum Nt.[A,U,G])) (Bio_prot.of_string "M")
+  (translate (Batteries.Enum.empty ())) (Bio_prot.of_string "")
 *)

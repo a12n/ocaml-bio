@@ -237,8 +237,8 @@ let rev_comp = rev % comp
 let transcribe = Bio_rna.of_enum % Batteries.Enum.map Nt.transcribe % enum
 
 (*$= transcribe
-  (transcribe (of_string "")) (Rna.of_string "")
-  (transcribe (of_string "gattaca")) (Rna.of_string "gauuaca")
+  (transcribe (of_string "")) (Bio_rna.of_string "")
+  (transcribe (of_string "gattaca")) (Bio_rna.of_string "gauuaca")
 *)
 
 module Ambig = struct

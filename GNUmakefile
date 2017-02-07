@@ -19,10 +19,10 @@ clean:
 	${RM} *_tests.ml qtest.targets.log
 
 test:	\
-		aa_tests.${TARGET}	\
-		dna_tests.${TARGET}	\
-		prot_tests.${TARGET}	\
-		rna_tests.${TARGET}
+		bio_aa_tests.${TARGET}	\
+		bio_dna_tests.${TARGET}	\
+		bio_prot_tests.${TARGET}	\
+		bio_rna_tests.${TARGET}
 	@for test in $^; do	\
 		echo ==== $$test ====;	\
 		./$$test --slow 5;	\
