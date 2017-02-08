@@ -15,13 +15,9 @@ let from_lines lines =
     match Enum.get lines with
     | Some line when starts_with '>' line -> (
         let id, descr =
-          let n = String.length line in
           match String.index line ' ' with
-          | i ->
-            String.(sub line 1 (i - 1),
-                    sub line (i + 1) (n - (i + 1)))
-          | exception Not_found ->
-            String.(sub line 1 (n - 1), "") in
+          | i -> String.(sub line 1 (i - 1), tail line (i + 1))
+          | exception Not_found -> String.(tail line 1, "") in
         parse_str id descr (Buffer.create 1024)
       )
     | Some _line -> failwith "entry start line has no leading '>' symbol"
