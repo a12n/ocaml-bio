@@ -15,9 +15,9 @@ module Make (Elt : Elt_sig) = struct
 
   let of_array arr = String.init (Array.length arr) (Elt.to_char % Array.get arr)
 
-  let of_enum enum = String.of_enum (Enum.map Elt.to_char enum)
+  let of_enum = String.of_enum % (Enum.map Elt.to_char)
 
-  let of_list list = String.of_list (List.map Elt.to_char list)
+  let of_list = String.of_list % (List.map Elt.to_char)
 
   let of_string = String.map Elt.(to_char % of_char)
 
