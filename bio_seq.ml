@@ -60,9 +60,9 @@ module Make (Elt : Elt_sig) = struct
     (* TODO *)
     let n = length s in
     let m = length t in
-    let l = Int.min n m - 1 in
+    let l = Int.min n m in
     let rec loop ans len =
-      if len < l then
+      if len <= l then
         if right s len = left t len then
           loop len (len + 1)
         else loop ans (len + 1)

@@ -105,6 +105,7 @@ include Bio_seq.Make (Nt)
 
 (*$= overlap
   (overlap (of_string "") (of_string "atg")) 0
+  (overlap (of_string "aaa") (of_string "aaa")) 3
   (overlap (of_string "acgctg") (of_string "gctgcacg")) 4
   (overlap (of_string "gctgcacg") (of_string "acgctg")) 3
 *)
