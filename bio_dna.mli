@@ -4,7 +4,7 @@ module type Nt_sig = sig
 end
 
 module Nt : sig
-  type nt = T | C | A | G
+  type nt = A | C | G | T
   include Nt_sig with type t = nt
 end
 

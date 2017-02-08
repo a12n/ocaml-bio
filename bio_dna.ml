@@ -8,43 +8,41 @@ end
 module Nt = struct
   (*$< Nt *)
 
-  (* The order of constructors makes they integer representation
-     compatible with 2bit format. *)
-  type nt = T | C | A | G and t = nt
+  type nt = A | C | G | T and t = nt
 
   let comp = function
-    | T -> A
-    | C -> G
     | A -> T
+    | C -> G
     | G -> C
+    | T -> A
 
   let n = 4
 
   let of_char = function
-    | 'T' | 't' -> T
-    | 'C' | 'c' -> C
     | 'A' | 'a' -> A
+    | 'C' | 'c' -> C
     | 'G' | 'g' -> G
+    | 'T' | 't' -> T
     | _ -> invalid_arg "Dna.Nt.of_char"
 
   let of_int = function
-    | 0b00 -> T
+    | 0b00 -> A
     | 0b01 -> C
-    | 0b10 -> A
-    | 0b11 -> G
+    | 0b10 -> G
+    | 0b11 -> T
     | _ -> invalid_arg "Dna.Nt.of_int"
 
   let to_char = function
-    | T -> 'T'
-    | C -> 'C'
     | A -> 'A'
+    | C -> 'C'
     | G -> 'G'
+    | T -> 'T'
 
   let to_int = function
-    | T -> 0b00
+    | A -> 0b00
     | C -> 0b01
-    | A -> 0b10
-    | G -> 0b11
+    | G -> 0b10
+    | T -> 0b11
 
   (*$Q of_int
     (QCheck.oneofl [A; C; G; T]) (fun nt -> of_int (to_int nt) = nt)
@@ -54,10 +52,10 @@ module Nt = struct
   *)
 
   let transcribe = function
-    | T -> Bio_rna.Nt.U
-    | C -> Bio_rna.Nt.C
     | A -> Bio_rna.Nt.A
+    | C -> Bio_rna.Nt.C
     | G -> Bio_rna.Nt.G
+    | T -> Bio_rna.Nt.U
 
   (*$>*)
 end
