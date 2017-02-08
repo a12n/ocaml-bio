@@ -3,37 +3,35 @@ open Batteries
 module Nt = struct
   (*$< Nt *)
 
-  (* See comment on [Dna.Nt.t] constructors order. *)
-  type nt = U | C | A | G and t = nt
+  type nt = A | C | G | U and t = nt
 
   let n = 4
 
   let of_char = function
-    | 'U' | 'u' -> U
-    | 'C' | 'c' -> C
     | 'A' | 'a' -> A
+    | 'C' | 'c' -> C
     | 'G' | 'g' -> G
+    | 'U' | 'u' -> U
     | _ -> invalid_arg "Rna.Nt.of_char"
 
   let of_int = function
-    | 0b00 -> U
+    | 0b00 -> A
     | 0b01 -> C
-    | 0b10 -> A
-    | 0b11 -> G
+    | 0b10 -> G
+    | 0b11 -> U
     | _ -> invalid_arg "Rna.Nt.of_int"
 
   let to_char = function
-    | U -> 'U'
-    | C -> 'C'
     | A -> 'A'
+    | C -> 'C'
     | G -> 'G'
+    | U -> 'U'
 
   let to_int = function
-    (* As in 2bit for DNA *)
-    | U -> 0b00
+    | A -> 0b00
     | C -> 0b01
-    | A -> 0b10
-    | G -> 0b11
+    | G -> 0b10
+    | U -> 0b11
 
   (*$Q of_int
     (QCheck.oneofl [A; C; G; U]) (fun nt -> of_int (to_int nt) = nt)

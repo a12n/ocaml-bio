@@ -1,5 +1,5 @@
 module Nt : sig
-  type nt = U | C | A | G
+  type nt = A | C | G | U
   include Bio_seq.Elt_sig with type t = nt
 end
 
