@@ -9,12 +9,9 @@ module type Seq_sig = sig
 end
 
 let from_lines lines =
-  let str_buf =
-    Buffer.create 1024 in
   let starts_entry line =
     String.(length line > 0 && get line 0 = '>') in
   let rec parse_header () =
-    Buffer.clear str_buf;
     match Enum.get lines with
     | Some line when starts_entry line -> (
         let id, descr =
@@ -25,11 +22,11 @@ let from_lines lines =
                     sub line (i + 1) (n - (i + 1)))
           | exception Not_found ->
             String.(sub line 1 (n - 1), "") in
-        parse_str id descr
+        parse_str id descr (Buffer.create 1024)
       )
     | Some _line -> failwith "entry start line has no leading '>' symbol"
     | None -> raise Enum.No_more_elements
-  and parse_str id descr =
+  and parse_str id descr str_buf =
     match Enum.peek lines with
     | None ->
       (* End of file *)
@@ -40,7 +37,7 @@ let from_lines lines =
     | Some line -> (
         Enum.junk lines;
         Buffer.add_string str_buf line;
-        parse_str id descr
+        parse_str id descr str_buf
       ) in
   Enum.from parse_header
 
