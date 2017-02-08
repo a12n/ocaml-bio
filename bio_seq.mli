@@ -34,6 +34,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val is_empty : t -> bool
   val left : t -> int -> t
   val length : t -> int
+  val overlap : t -> t -> int
   val rev : t -> t
   val right : t -> int -> t
   val sub : t -> start:int -> len:int -> t

@@ -56,6 +56,19 @@ module Make (Elt : Elt_sig) = struct
 
   let sub seq ~start ~len = String.sub seq start len
 
+  let overlap s t =
+    (* TODO *)
+    let n = length s in
+    let m = length t in
+    let l = Int.min n m - 1 in
+    let rec loop ans len =
+      if len < l then
+        if right s len = left t len then
+          loop len (len + 1)
+        else loop ans (len + 1)
+      else ans in
+    loop 0 1
+
 
   let fold_left f = String.fold_left (fun ans c -> f ans (Elt.of_char c))
 
