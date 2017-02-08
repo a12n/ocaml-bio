@@ -14,10 +14,11 @@ let from_lines lines =
   let rec parse_header () =
     match Enum.get lines with
     | Some line when starts_with '>' line -> (
-        let id, descr =
-          match String.index line ' ' with
-          | i -> String.(sub line 1 (i - 1), tail line (i + 1))
-          | exception Not_found -> String.(tail line 1, "") in
+        let id, descr = String.(
+            match index line ' ' with
+            | i -> sub line 1 (i - 1), tail line (i + 1)
+            | exception Not_found -> tail line 1, ""
+          ) in
         parse_str id descr (Buffer.create 1024)
       )
     | Some _line -> failwith "entry start line has no leading '>' symbol"
