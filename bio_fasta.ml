@@ -19,7 +19,7 @@ let from_lines lines =
             | i -> sub line 1 (i - 1), tail line (i + 1)
             | exception Not_found -> tail line 1, ""
           ) in
-        parse_str id descr (Buffer.create 1024)
+        parse_str id descr (Buffer.create 4096)
       )
     | Some _line -> failwith "entry start line has no leading '>' symbol"
     | None -> raise Enum.No_more_elements
