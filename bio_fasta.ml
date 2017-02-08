@@ -9,11 +9,11 @@ module type Seq_sig = sig
 end
 
 let from_lines lines =
-  let starts_entry line =
-    String.(length line > 0 && get line 0 = '>') in
+  let starts_with sym line =
+    String.(length line > 0 && get line 0 = sym) in
   let rec parse_header () =
     match Enum.get lines with
-    | Some line when starts_entry line -> (
+    | Some line when starts_with '>' line -> (
         let id, descr =
           let n = String.length line in
           match String.index line ' ' with
@@ -31,7 +31,7 @@ let from_lines lines =
     | None ->
       (* End of file *)
       (id, descr, Buffer.contents str_buf)
-    | Some line when starts_entry line ->
+    | Some line when starts_with '>' line ->
       (* Next entry *)
       (id, descr, Buffer.contents str_buf)
     | Some line -> (
