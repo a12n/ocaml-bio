@@ -69,6 +69,9 @@ module Make (Elt : Elt_sig) = struct
       else ans in
     loop 0 1
 
+  let kmers ~k s =
+    Enum.init (length s - k + 1) (fun start -> sub ~start ~len:k s)
+
 
   let fold_left f = String.fold_left (fun ans c -> f ans (Elt.of_char c))
 
