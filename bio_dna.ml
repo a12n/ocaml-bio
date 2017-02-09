@@ -83,8 +83,15 @@ include Bio_seq.Make (Nt)
 
 (*$= find_elt
   (Batteries.List.of_enum (find_elt (of_string "") Nt.A)) []
+  (Batteries.List.of_enum (find_elt (of_string "atg") Nt.C)) []
   (Batteries.List.of_enum (find_elt (of_string "cccc") Nt.C)) [0; 1; 2; 3]
   (Batteries.List.of_enum (find_elt (of_string "gattaca") Nt.A)) [1; 4; 6]
+  (Batteries.List.of_enum (find_elt (of_string "gattaca") Nt.C)) [5]
+  (Batteries.List.of_enum (find_elt (of_string "gattaca") Nt.G)) [0]
+  (Batteries.List.of_enum (find_elt (of_string "gattaca") Nt.T)) [2; 3]
+  (Batteries.List.of_enum (find_elt (of_string "gattaca") ~start:2 Nt.T)) [2; 3]
+  (Batteries.List.of_enum (find_elt (of_string "gattaca") ~start:3 Nt.T)) [3]
+  (Batteries.List.of_enum (find_elt (of_string "gattaca") ~start:4 Nt.T)) []
 *)
 
 (*$= get
