@@ -15,8 +15,10 @@ module Make : functor (Seq : Seq_sig) -> sig
 
   val from_file : string -> Entry.t Enum.t
   val from_input : IO.input -> Entry.t Enum.t
+  val from_string : string -> Entry.t Enum.t
   val to_file : string -> Entry.t Enum.t -> unit
   val to_output : 'a IO.output -> Entry.t Enum.t -> unit
+  val to_string : Entry.t Enum.t -> string
 end
 
 module Dna : module type of Make (Bio_dna)

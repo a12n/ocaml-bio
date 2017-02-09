@@ -52,6 +52,8 @@ module Make (Seq : Seq_sig) = struct
     let f = File.open_in fname in
     Enum.suffix_action (fun () -> IO.close_in f) (from_input f)
 
+  let from_string = from_input % IO.input_string
+
   let to_output ch =
     Enum.iter (fun (id, descr, seq) ->
         Char.print ch '>';
@@ -71,6 +73,11 @@ module Make (Seq : Seq_sig) = struct
     let f = File.open_out fname in
     Enum.suffix_action (fun () -> IO.close_out f) entries |>
     to_output f
+
+  let to_string entries =
+    let f = IO.output_string () in
+    to_output f entries;
+    IO.close_out f
 end
 
 module Dna = Make (Bio_dna)
