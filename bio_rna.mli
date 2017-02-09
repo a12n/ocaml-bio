@@ -43,7 +43,7 @@ end
     reading frames 1 and 2. *)
 val codons : t -> Rf.t
 
-val orf : ?gen_code:(module Gen_code.Sig) -> Rf.t -> Rf.t
+val orf : ?gen_code:(module Gen_code.Sig) -> Rf.t -> Rf.t option
 
 (** Return all trhee reading frames of RNA strand. *)
 val rfs : t -> Rf.t * Rf.t * Rf.t

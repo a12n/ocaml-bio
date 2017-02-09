@@ -225,20 +225,26 @@ let orf ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
   Enum.(
     let _pre_start, start = break ((flip List.mem) Gen_code.start_codons) rf in
     let pre_stop, stop = break ((flip List.mem) Gen_code.stop_codons) start in
-    if is_empty stop then empty ()
-    else append pre_stop (take 1 stop)
+    if is_empty stop then None
+    else Some (append pre_stop (take 1 stop))
   )
 
 (*$= orf
-  Batteries.(List.of_enum (orf (List.enum Nt.[A,A,A; A,U,G; A,A,A; U,A,A]))) Nt.[A,U,G; A,A,A; U,A,A]
-  Batteries.(List.of_enum (orf (List.enum Nt.[A,A,A; A,U,G; A,A,A; U,A,G; A,A,A]))) Nt.[A,U,G; A,A,A; U,A,G]
-  Batteries.(List.of_enum (orf (List.enum Nt.[A,A,A; A,U,G; A,A,A; U,G,A]))) Nt.[A,U,G; A,A,A; U,G,A]
-  Batteries.(List.of_enum (orf (List.enum Nt.[A,A,A; A,U,G; A,A,A]))) []
-  Batteries.(List.of_enum (orf (List.enum Nt.[G,A,U; U,A,A]))) []
-  Batteries.(List.of_enum (orf (List.enum Nt.[G,A,U; U,A,C]))) []
-  Batteries.(List.of_enum (orf (List.enum Nt.[G,A,U; U,A,G]))) []
-  Batteries.(List.of_enum (orf (List.enum Nt.[G,A,U; U,G,A]))) []
-  Batteries.(List.of_enum (orf (List.enum []))) []
+  Batteries.(Option.map List.of_enum (orf (List.enum Nt.[A,A,A; A,U,G; A,A,A; U,A,A]))) \
+  (Some Nt.[A,U,G; A,A,A; U,A,A])
+
+  Batteries.(Option.map List.of_enum (orf (List.enum Nt.[A,A,A; A,U,G; A,A,A; U,A,G; A,A,A]))) \
+  (Some Nt.[A,U,G; A,A,A; U,A,G])
+
+  Batteries.(Option.map List.of_enum (orf (List.enum Nt.[A,A,A; A,U,G; A,A,A; U,G,A]))) \
+  (Some Nt.[A,U,G; A,A,A; U,G,A])
+
+  Batteries.(Option.map List.of_enum (orf (List.enum Nt.[A,A,A; A,U,G; A,A,A]))) None
+  Batteries.(Option.map List.of_enum (orf (List.enum Nt.[G,A,U; U,A,A]))) None
+  Batteries.(Option.map List.of_enum (orf (List.enum Nt.[G,A,U; U,A,C]))) None
+  Batteries.(Option.map List.of_enum (orf (List.enum Nt.[G,A,U; U,A,G]))) None
+  Batteries.(Option.map List.of_enum (orf (List.enum Nt.[G,A,U; U,G,A]))) None
+  Batteries.(Option.map List.of_enum (orf (List.enum []))) None
 *)
 
 let rfs_of_enum nts =
