@@ -38,16 +38,18 @@ module Make (Elt : Elt_sig) = struct
       String.nreplace ~str ~sub ~by:""
     else str
 
-  let find_elt seq elt =
+  let find_elt ?(start=0) seq elt =
     let c = Elt.to_char elt in
-    Enum.from_loop 0 (fun start ->
+    Enum.from_loop start (fun start ->
         match String.index_from seq start c with
         | i -> i, i + 1
         | exception (Invalid_argument _) -> raise Enum.No_more_elements
         | exception Not_found -> raise Enum.No_more_elements
       )
 
-  let find_sub s ~sub = String.find_all s sub
+  let find_sub ?(start=0) s ~sub =
+    (* TODO: handle start *)
+    String.find_all s sub
 
   let get seq i = Elt.of_char (String.get seq i)
 

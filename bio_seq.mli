@@ -30,8 +30,8 @@ module Make : functor (Elt : Elt_sig) -> sig
 
   val compare : t -> t -> int
   val delete : t -> sub:t -> t
-  val find_elt : t -> Elt.t -> int Enum.t
-  val find_sub : t -> sub:t -> int Enum.t
+  val find_elt : ?start:int -> t -> Elt.t -> int Enum.t
+  val find_sub : ?start:int -> t -> sub:t -> int Enum.t
   val get : t -> int -> Elt.t
   val is_empty : t -> bool
   val kmers : k:int -> t -> t Enum.t
