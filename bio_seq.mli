@@ -28,6 +28,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val iteri : (int -> Elt.t -> unit) -> t -> unit
   val map : (Elt.t -> Elt.t) -> t -> t
 
+  val compare : t -> t -> int
   val find_elt : t -> Elt.t -> int Enum.t
   val find_sub : t -> t -> int Enum.t
   val get : t -> int -> Elt.t

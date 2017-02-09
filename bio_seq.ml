@@ -31,6 +31,8 @@ module Make (Elt : Elt_sig) = struct
   let to_string seq = seq
 
 
+  let compare = String.compare
+
   let find_elt seq elt =
     let c = Elt.to_char elt in
     Enum.from_loop 0 (fun start ->
