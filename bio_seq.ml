@@ -63,7 +63,7 @@ module Make (Elt : Elt_sig) = struct
 
   let sub seq ~start ~len = String.sub seq start len
 
-  let overlap s t =
+  let overlap_length s t =
     (* TODO *)
     let n = length s in
     let m = length t in
