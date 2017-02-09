@@ -192,7 +192,8 @@ module Make (Elt : Elt_sig) = struct
     Buffer.contents buf
 
 
-  let print = String.print_quoted
+  let print = String.print
+  let print_quoted = String.print_quoted
 
 
   module Pfm = struct

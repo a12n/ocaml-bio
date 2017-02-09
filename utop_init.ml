@@ -7,10 +7,10 @@ open Batteries;;
 
 open Bio;;
 
-let pp_dna = IO.to_f_printer Dna.print;;
-let pp_dna_ambig = IO.to_f_printer Dna.Ambig.print;;
-let pp_prot = IO.to_f_printer Prot.print;;
-let pp_rna = IO.to_f_printer Rna.print;;
+let pp_dna = IO.to_f_printer Dna.print_quoted;;
+let pp_dna_ambig = IO.to_f_printer Dna.Ambig.print_quoted;;
+let pp_prot = IO.to_f_printer Prot.print_quoted;;
+let pp_rna = IO.to_f_printer Rna.print_quoted;;
 
 #install_printer pp_dna;;
 #install_printer pp_dna_ambig;;
