@@ -243,7 +243,7 @@ let rev_comp = rev % comp
   (rev_comp (of_string "gattaca")) (of_string "tgtaatc")
 *)
 
-let transcribe = Bio_rna.of_enum % Batteries.Enum.map Nt.transcribe % enum
+let transcribe = Bio_rna.of_enum % Enum.map Nt.transcribe % enum
 
 (*$= transcribe
   (transcribe (of_string "")) (Bio_rna.of_string "")
