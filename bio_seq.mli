@@ -29,6 +29,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val map : (Elt.t -> Elt.t) -> t -> t
 
   val compare : t -> t -> int
+  val delete : t -> sub:t -> t
   val find_elt : t -> Elt.t -> int Enum.t
   val find_sub : t -> sub:t -> int Enum.t
   val get : t -> int -> Elt.t

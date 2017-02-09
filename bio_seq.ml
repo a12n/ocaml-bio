@@ -33,6 +33,11 @@ module Make (Elt : Elt_sig) = struct
 
   let compare = String.compare
 
+  let delete str ~sub =
+    if not (String.is_empty sub) then
+      String.nreplace ~str ~sub ~by:""
+    else str
+
   let find_elt seq elt =
     let c = Elt.to_char elt in
     Enum.from_loop 0 (fun start ->
