@@ -42,7 +42,7 @@ module Make (Elt : Elt_sig) = struct
         | exception Not_found -> raise Enum.No_more_elements
       )
 
-  let find_sub = String.find_all
+  let find_sub s ~sub = String.find_all s sub
 
   let get seq i = Elt.of_char (String.get seq i)
 
