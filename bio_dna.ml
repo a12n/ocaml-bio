@@ -62,6 +62,14 @@ end
 
 include Bio_seq.Make (Nt)
 
+(*$= delete
+  (delete (of_string "") (of_string "")) (of_string "")
+  (delete (of_string "ATG") (of_string "")) (of_string "ATG")
+  (delete (of_string "GATTACA") (of_string "A")) (of_string "GTTC")
+  (delete (of_string "") (of_string "ATG")) (of_string "")
+  (delete (of_string "ATG") (of_string "ATG")) (of_string "")
+*)
+
 (*$T find_sub
   (Batteries.List.of_enum (find_sub (of_string "") (of_string "atg"))) = []
   (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string "ac"))) = [4]
