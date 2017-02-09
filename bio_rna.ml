@@ -50,7 +50,7 @@ module Codon = struct
 end
 
 module Rf = struct
-  type t = Codon.t Batteries.Enum.t
+  type t = Codon.t Enum.t
 end
 
 module Gen_code = struct
@@ -65,7 +65,7 @@ module Gen_code = struct
 
   let find_stop_codons translate =
     let nts = [A; C; G; U] in
-    Batteries.List.(
+    List.(
       n_cartesian_product [nts; nts; nts] |>
       filter_map (
         function [base1; base2; base3] ->
@@ -205,7 +205,7 @@ module Gen_code = struct
 end
 
 let codons_of_enum nts =
-  Batteries.Enum.(from (fun () ->
+  Enum.(from (fun () ->
       let base1 = get_exn nts in
       let base2 = get_exn nts in
       let base3 = get_exn nts in
@@ -222,7 +222,7 @@ let codons = codons_of_enum % enum
 
 let orf ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
   let module Gen_code = (val gen_code : Gen_code.Sig) in
-  Batteries.Enum.(
+  Enum.(
     let _pre_start, start = break ((flip List.mem) Gen_code.start_codons) rf in
     let pre_stop, stop = break ((flip List.mem) Gen_code.stop_codons) start in
     if is_empty stop then empty ()
@@ -242,7 +242,7 @@ let orf ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
 *)
 
 let rfs_of_enum nts =
-  Batteries.Enum.(
+  Enum.(
     nts |> codons_of_enum,
     clone nts |> skip 1 |> codons_of_enum,
     clone nts |> skip 2 |> codons_of_enum
@@ -266,7 +266,6 @@ let rfs = rfs_of_enum % enum
 
 let translate ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
   let module Gen_code = (val gen_code : Gen_code.Sig) in
-  let open Batteries in
   Enum.from_while (fun () -> Option.bind (Enum.get rf) Gen_code.translate) |>
   Bio_prot.of_enum
 
