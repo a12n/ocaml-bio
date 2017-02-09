@@ -76,6 +76,14 @@ module Make (Elt : Elt_sig) = struct
       else ans in
     loop 0 1
 
+  let overlap ?len s t =
+    let n = length s in
+    let len = Option.default_delayed
+        (fun () -> overlap_length s t) len in
+    if len < 0 || len > n then
+      invalid_arg "invalid overlap length";
+    left s (n - len) ^ t
+
   let kmers ~k s =
     Enum.init (length s - k + 1) (fun start -> sub ~start ~len:k s)
 

@@ -37,6 +37,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val kmers : k:int -> t -> t Enum.t
   val left : t -> int -> t
   val length : t -> int
+  val overlap : ?len:int -> t -> t -> t
   val overlap_length : t -> t -> int
   val rev : t -> t
   val right : t -> int -> t
