@@ -1,3 +1,5 @@
+open Batteries
+
 module Nt : sig
   type nt = A | C | G | U
   include Bio_seq.Elt_sig with type t = nt
@@ -10,7 +12,7 @@ module Codon : sig
 end
 
 module Rf : sig
-  type t = Codon.t Batteries.Enum.t
+  type t = Codon.t Enum.t
 end
 
 module Gen_code : sig
