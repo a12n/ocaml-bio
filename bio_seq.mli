@@ -34,7 +34,6 @@ module Make : functor (Elt : Elt_sig) -> sig
   val find_sub : ?start:int -> t -> sub:t -> int Enum.t
   val get : t -> int -> Elt.t
   val is_empty : t -> bool
-  val kmers : k:int -> t -> t Enum.t
   val left : t -> int -> t
   val length : t -> int
   val overlap : ?len:int -> t -> t -> t
@@ -42,6 +41,10 @@ module Make : functor (Elt : Elt_sig) -> sig
   val rev : t -> t
   val right : t -> int -> t
   val sub : t -> start:int -> len:int -> t
+
+  val int_of_kmer : t -> int
+  val kmer_of_int : k:int -> int -> t
+  val kmers : k:int -> t -> t Enum.t
 
   val count : Elt.t -> t -> int
 

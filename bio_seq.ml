@@ -86,6 +86,25 @@ module Make (Elt : Elt_sig) = struct
       invalid_arg "invalid overlap length";
     left s (n - len) ^ t
 
+
+  let int_of_kmer s =
+    let k = length s in
+    let rec loop ans m i =
+      if i >= 0 then
+        let elt = Elt.(to_int (of_char s.[i])) in
+        loop (ans + m * elt) (m * Elt.n) (i - 1)
+      else ans in
+    loop 0 1 (k - 1)
+
+  let kmer_of_int ~k m =
+    let rec loop buf m i =
+      if i >= 0 then
+        let c = Elt.(to_char (of_int (m mod n))) in
+        Bytes.set buf i c;
+        loop buf (m / Elt.n) (i - 1)
+      else Bytes.unsafe_to_string buf in
+    loop (Bytes.create k) m (k - 1)
+
   let kmers ~k s = Enum.init (length s - k + 1) (fun i -> sub ~start:i ~len:k s)
 
 
