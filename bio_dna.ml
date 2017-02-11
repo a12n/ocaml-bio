@@ -127,6 +127,14 @@ include Bio_seq.Make (Nt)
   (rev (of_string "atg")) (of_string "gta")
 *)
 
+(*$= kmers
+  (Batteries.List.of_enum (kmers ~k:1 (of_string ""))) []
+  (Batteries.List.of_enum (kmers ~k:1 (of_string "at"))) [of_string "a"; of_string "t"]
+  (Batteries.List.of_enum (kmers ~k:2 (of_string "atg"))) [of_string "at"; of_string "tg"]
+  (Batteries.List.of_enum (kmers ~k:3 (of_string "atg"))) [of_string "atg"]
+  (Batteries.List.of_enum (kmers ~k:4 (of_string "atg"))) []
+*)
+
 (*$= count
   (count Nt.A (of_string "")) 0
   (count Nt.C (of_string "")) 0
