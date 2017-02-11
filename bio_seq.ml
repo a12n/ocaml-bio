@@ -86,8 +86,7 @@ module Make (Elt : Elt_sig) = struct
       invalid_arg "invalid overlap length";
     left s (n - len) ^ t
 
-  let kmers ~k s =
-    Enum.init (length s - k + 1) (fun start -> sub ~start ~len:k s)
+  let kmers ~k s = Enum.init (length s - k + 1) (fun i -> sub ~start:i ~len:k s)
 
 
   let fold_left f = String.fold_left (fun ans c -> f ans (Elt.of_char c))
