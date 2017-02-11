@@ -127,6 +127,27 @@ include Bio_seq.Make (Nt)
   (rev (of_string "atg")) (of_string "gta")
 *)
 
+(*$= int_of_kmer
+  (int_of_kmer (of_string "aa")) 0
+  (int_of_kmer (of_string "aaa")) 0
+  (int_of_kmer (of_string "gg")) 10
+  (int_of_kmer (of_string "")) 0
+  (int_of_kmer (of_string "atg")) 14
+*)
+
+(*$= kmer_of_int
+  (kmer_of_int ~k:1 0) (of_string "a")
+  (kmer_of_int ~k:1 1) (of_string "c")
+  (kmer_of_int ~k:1 2) (of_string "g")
+  (kmer_of_int ~k:1 3) (of_string "t")
+  (kmer_of_int ~k:2 0) (of_string "aa")
+  (kmer_of_int ~k:2 1) (of_string "ac")
+  (kmer_of_int ~k:2 2) (of_string "ag")
+  (kmer_of_int ~k:2 14) (of_string "tg")
+  (kmer_of_int ~k:2 10) (of_string "gg")
+  (kmer_of_int ~k:2 15) (of_string "tt")
+*)
+
 (*$= kmers
   (Batteries.List.of_enum (kmers ~k:1 (of_string ""))) []
   (Batteries.List.of_enum (kmers ~k:1 (of_string "at"))) [of_string "a"; of_string "t"]
