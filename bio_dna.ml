@@ -74,17 +74,6 @@ include Bio_seq.Make (Nt)
   (delete (of_string "ATG") (of_string "ATG")) (of_string "")
 *)
 
-(*$T find_sub
-  (Batteries.List.of_enum (find_sub (of_string "") (of_string "atg"))) = []
-  (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string "ac"))) = [4]
-
-  try ignore (Batteries.List.of_enum (find_sub (of_string "") (of_string ""))); \
-  false with (Invalid_argument _) -> true
-
-  try ignore (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string ""))); \
-  false with (Invalid_argument _) -> true
-*)
-
 (*$= find_elt
   (Batteries.List.of_enum (find_elt (of_string "") Nt.A)) []
   (Batteries.List.of_enum (find_elt (of_string "atg") Nt.C)) []
@@ -96,6 +85,17 @@ include Bio_seq.Make (Nt)
   (Batteries.List.of_enum (find_elt (of_string "gattaca") ~start:2 Nt.T)) [2; 3]
   (Batteries.List.of_enum (find_elt (of_string "gattaca") ~start:3 Nt.T)) [3]
   (Batteries.List.of_enum (find_elt (of_string "gattaca") ~start:4 Nt.T)) []
+*)
+
+(*$T find_sub
+  (Batteries.List.of_enum (find_sub (of_string "") (of_string "atg"))) = []
+  (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string "ac"))) = [4]
+
+  try ignore (Batteries.List.of_enum (find_sub (of_string "") (of_string ""))); \
+  false with (Invalid_argument _) -> true
+
+  try ignore (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string ""))); \
+  false with (Invalid_argument _) -> true
 *)
 
 (*$= get
@@ -115,16 +115,16 @@ include Bio_seq.Make (Nt)
   (length (of_string "ac")) 2
 *)
 
-(*$= rev
-  (rev (of_string "")) (of_string "")
-  (rev (of_string "atg")) (of_string "gta")
-*)
-
 (*$= overlap_length
   (overlap_length (of_string "") (of_string "atg")) 0
   (overlap_length (of_string "aaa") (of_string "aaa")) 3
   (overlap_length (of_string "acgctg") (of_string "gctgcacg")) 4
   (overlap_length (of_string "gctgcacg") (of_string "acgctg")) 3
+*)
+
+(*$= rev
+  (rev (of_string "")) (of_string "")
+  (rev (of_string "atg")) (of_string "gta")
 *)
 
 (*$= count
