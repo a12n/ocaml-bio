@@ -12,6 +12,7 @@ include module type of Bio_seq.Make (Nt)
 
 val comp : t -> t
 val gc_content : t -> float
+val gc_prob : float -> t -> float
 val num_trans : t -> t -> int
 val num_transv : t -> t -> int
 val rev_comp : t -> t

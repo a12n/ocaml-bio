@@ -16,6 +16,10 @@ module Nt = struct
     | G -> C
     | T -> A
 
+  let gc_prob gc = function
+    | A | T -> (1.0 -. gc) /. 2.0
+    | G | C -> gc /. 2.0
+
   let n = 4
 
   let of_char = function
@@ -214,6 +218,8 @@ let gc_content s =
   | 0 -> invalid_arg "Dna.gc_content"
   | n -> float_of_int Nt.(count G s + count C s) /.
          float_of_int n
+
+let gc_prob gc s = Enum.fold ( *.) 1.0 (Enum.map (Nt.gc_prob gc) (enum s))
 
 (*$T gc_content
   Batteries.Float.approx_equal (gc_content (of_string "att")) 0.0
