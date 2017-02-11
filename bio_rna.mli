@@ -3,6 +3,7 @@ open Batteries
 module Nt : sig
   type nt = A | C | G | U
   include Bio_seq.Elt_sig with type t = nt
+  val comp : t -> t
 end
 
 include module type of Bio_seq.Make (Nt)

@@ -5,6 +5,12 @@ module Nt = struct
 
   type nt = A | C | G | U and t = nt
 
+  let comp = function
+    | A -> U
+    | C -> G
+    | G -> C
+    | U -> A
+
   let n = 4
 
   let of_char = function
