@@ -5,6 +5,7 @@ include Bio_seq.Elt_sig with type t = aa
 
 val abbr : t -> string
 val avg_mass : t -> float
+val from_mass : ?epsilon:float -> float -> t option
 val mass : t -> float
 val name : t -> string
 

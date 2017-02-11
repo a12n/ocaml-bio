@@ -1,3 +1,5 @@
+open Batteries
+
 type aa = A | R | N | D | C | Q | E | G | H | I
         | L | K | M | F | P | S | T | W | Y | V
         (* | O | U *)
@@ -179,6 +181,15 @@ let mass = function
   | V ->  99.06841
   (* | O -> 237.14773 *)
   (* | U -> 150.95363 *)
+
+let from_mass ?(epsilon=1.0E-3) m =
+  let f aa =
+    match Float.(abs (m - (mass aa))) with
+    | d when d < epsilon -> Some (d, aa)
+    | _ -> None in
+  try
+    Some List.(snd (min (filter_map f (init n of_int))))
+  with Invalid_argument _ -> None
 
 let name = function
   | A -> "Alanine"
