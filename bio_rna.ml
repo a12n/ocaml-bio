@@ -253,27 +253,18 @@ let orf ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =
   Batteries.(Option.map List.of_enum (orf (List.enum []))) None
 *)
 
-let rfs_of_enum nts =
-  Enum.(
-    nts |> codons_of_enum,
-    clone nts |> skip 1 |> codons_of_enum,
-    clone nts |> skip 2 |> codons_of_enum
-  )
+let rfs s =
+  Enum.from_loop 0 (fun n ->
+      match enum s |> Enum.skip n |> codons_of_enum with
+      | rf when Enum.is_empty rf -> raise Enum.No_more_elements
+      | rf -> rf, n + 1
+    )
 
-let rfs = rfs_of_enum % enum
-
-(*$T rfs
-  (let (a,b,c) = rfs (of_string "") in \
-   let (a,b,c) = Batteries.List.(of_enum a, of_enum b, of_enum c) in \
-   a = [] && b = [] && c = [])
-
-  (let (a,b,c) = rfs (of_string "aau") in \
-   let (a,b,c) = Batteries.List.(of_enum a, of_enum b, of_enum c) in \
-   a = Nt.[A,A,U] && b = [] && c = [])
-
-  (let (a,b,c) = rfs (of_string "gauuaca") in \
-   let (a,b,c) = Batteries.List.(of_enum a, of_enum b, of_enum c) in \
-   a = Nt.[G,A,U; U,A,C] && b = Nt.[A,U,U; A,C,A] && c = Nt.[U,U,A])
+(*$= rfs
+  (Batteries.(List.of_enum % Enum.map List.of_enum) (rfs (of_string ""))) []
+  (Batteries.(List.of_enum % Enum.map List.of_enum) (rfs (of_string "aau"))) Nt.[ [A,A,U] ]
+  (Batteries.(List.of_enum % Enum.map List.of_enum) (rfs (of_string "gauuaca"))) \
+  Nt.[ [G,A,U; U,A,C]; [A,U,U; A,C,A]; [U,U,A]; [U,A,C]; [A,C,A] ]
 *)
 
 let translate ?(gen_code=(module Gen_code.Std : Gen_code.Sig)) rf =

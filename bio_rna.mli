@@ -39,15 +39,13 @@ module Gen_code : sig
   module Mold_mt : Sig
 end
 
-(** Returns reading frame 0 of RNA strand [s]. Equivalent
-    to [let (rf0, _, _) = rfs s in rf0], but doesn't create
-    reading frames 1 and 2. *)
+(** Returns reading frame 0 of RNA strand [s]. *)
 val codons : t -> Rf.t
 
 val orf : ?gen_code:(module Gen_code.Sig) -> Rf.t -> Rf.t option
 
-(** Return all trhee reading frames of RNA strand. *)
-val rfs : t -> Rf.t * Rf.t * Rf.t
+(** Return all possible reading frames of RNA strand. *)
+val rfs : t -> Rf.t Enum.t
 
 (** Translate reading frame to a protein string according to specified
     genetic code ([Gen_code.Std] is used by default). *)
