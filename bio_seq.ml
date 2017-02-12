@@ -107,6 +107,16 @@ module Make (Elt : Elt_sig) = struct
 
   let kmers ~k s = Enum.init (length s - k + 1) (fun i -> sub ~start:i ~len:k s)
 
+  let num_kmers ~k = Int.pow Elt.n k
+
+  let kmer_compos ~k s =
+    let ans = Array.make (num_kmers ~k) 0 in
+    Enum.iter (fun t ->
+        let i = int_of_kmer t in
+        ans.(i) <- ans.(i) + 1
+      ) (kmers ~k s);
+    ans
+
 
   let fold_left f = String.fold_left (fun ans c -> f ans (Elt.of_char c))
 
