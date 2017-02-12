@@ -156,6 +156,12 @@ include Bio_seq.Make (Nt)
   (Batteries.List.of_enum (kmers ~k:4 (of_string "atg"))) []
 *)
 
+(*$= kmer_compos
+  (kmer_compos ~k:1 (of_string "")) [|0; 0; 0; 0|]
+  (kmer_compos ~k:1 (of_string "atg")) [|1; 0; 1; 1|]
+  (kmer_compos ~k:2 (of_string "gattaca")) [|0; 1; 0; 1; 1; 0; 0; 0; 1; 0; 0; 0; 1; 0; 0; 1|]
+*)
+
 (*$= count
   (count Nt.A (of_string "")) 0
   (count Nt.C (of_string "")) 0
