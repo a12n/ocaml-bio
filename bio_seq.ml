@@ -472,8 +472,6 @@ module Make (Elt : Elt_sig) = struct
           b.(n).(j) <- `Left
         done
       end;
-      print_tables s b;
-      Printf.eprintf "%d,%d\n%!" (fst !best_ij) (snd !best_ij);
       !best_s, b, (n, m)
 
     let semi_global ?scoring x y =
