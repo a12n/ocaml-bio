@@ -106,7 +106,7 @@ module Gen_code = struct
       | G,U,U | G,U,C | G,U,A | G,U,G                 -> Some Aa.V
       | U,A,A | U,A,G | U,G,A                         -> None
 
-    let start_codons = [U,U,G; C,U,G; A,U,G]
+    let start_codons = [A,U,G]
 
     let stop_codons = find_stop_codons translate
 

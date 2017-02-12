@@ -23,7 +23,9 @@ module Gen_code : sig
     val translate : Codon.t -> Bio_aa.t option
   end
 
-  (** Standard. *)
+  (** Standard. Start codon list in [Std] genetic code contains only
+      AUG. To extend it with alternative initiation codons UUG and CUG,
+      new module must be derived from [Std]. *)
   module Std : sig
     include Sig
     val rev_translate : Bio_aa.t -> Codon.t list
