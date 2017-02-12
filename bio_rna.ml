@@ -59,6 +59,7 @@ module Rf = struct
   type t = Codon.t Enum.t
 end
 
+(* https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi *)
 module Gen_code = struct
   module type Sig = sig
     val start_codons : Codon.t list
