@@ -40,7 +40,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val overlap_length : t -> t -> int
   val rev : t -> t
   val right : t -> int -> t
-  val slice : t -> first:int -> last:int -> t
+  val slice : ?first:int -> ?last:int -> t -> t
   val sub : t -> start:int -> len:int -> t
 
   val int_of_kmer : t -> int

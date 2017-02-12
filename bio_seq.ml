@@ -63,7 +63,7 @@ module Make (Elt : Elt_sig) = struct
 
   let right = String.right
 
-  let slice seq ~first ~last = String.slice ~first ~last seq
+  let slice = String.slice
 
   let sub seq ~start ~len = String.sub seq start len
 
