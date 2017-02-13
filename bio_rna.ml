@@ -46,6 +46,11 @@ module Nt = struct
     (QCheck.oneofl [A; C; G; U]) (fun nt -> of_char (to_char nt) = nt)
   *)
 
+  let wobble = function
+    | G -> Some U
+    | U -> Some G
+    | _ -> None
+
   (*$>*)
 end
 
