@@ -238,6 +238,7 @@ module Make (Elt : Elt_sig) = struct
 
 
   let print = String.print
+  let print_elt f elt = Char.print f (Elt.to_char elt)
   let print_quoted = String.print_quoted
 
 

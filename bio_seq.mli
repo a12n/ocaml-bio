@@ -58,6 +58,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val scs : t -> t -> t
 
   val print : (t, 'a) IO.printer
+  val print_elt : (Elt.t, 'a) IO.printer
   val print_quoted : (t, 'a) IO.printer
 
   (** Position frequency matrix. *)
