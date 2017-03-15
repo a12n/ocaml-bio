@@ -38,17 +38,17 @@ module Make (Elt : Elt_sig) = struct
       String.nreplace ~str ~sub ~by:""
     else str
 
-  let find_elt ?(start=0) seq elt =
+  let find_elt ?(first=0) seq elt =
     let c = Elt.to_char elt in
-    Enum.from_loop start (fun start ->
-        match String.index_from seq start c with
+    Enum.from_loop first (fun first ->
+        match String.index_from seq first c with
         | i -> i, i + 1
         | exception (Invalid_argument _) -> raise Enum.No_more_elements
         | exception Not_found -> raise Enum.No_more_elements
       )
 
-  let find_sub ?(start=0) s ~sub =
-    (* TODO: handle start *)
+  let find_sub ?(first=0) s ~sub =
+    (* TODO: handle first *)
     String.find_all s sub
 
   let get seq i = Elt.of_char (String.get seq i)
@@ -65,7 +65,7 @@ module Make (Elt : Elt_sig) = struct
 
   let slice = String.slice
 
-  let sub seq ~start ~len = String.sub seq start len
+  let sub seq ~first ~len = String.sub seq first len
 
   let overlap_length s t =
     (* TODO *)
@@ -107,7 +107,7 @@ module Make (Elt : Elt_sig) = struct
       else Bytes.unsafe_to_string buf in
     loop (Bytes.create k) m (k - 1)
 
-  let kmers ~k s = Enum.init (length s - k + 1) (fun i -> sub ~start:i ~len:k s)
+  let kmers ~k s = Enum.init (length s - k + 1) (fun i -> sub ~first:i ~len:k s)
 
   let num_kmers ~k = Int.pow Elt.n k
 

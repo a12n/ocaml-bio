@@ -30,8 +30,8 @@ module Make : functor (Elt : Elt_sig) -> sig
 
   val compare : t -> t -> int
   val delete : t -> sub:t -> t
-  val find_elt : ?start:int -> t -> Elt.t -> int Enum.t
-  val find_sub : ?start:int -> t -> sub:t -> int Enum.t
+  val find_elt : ?first:int -> t -> Elt.t -> int Enum.t
+  val find_sub : ?first:int -> t -> sub:t -> int Enum.t
   val get : t -> int -> Elt.t
   val is_empty : t -> bool
   val left : t -> int -> t
@@ -41,7 +41,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val rev : t -> t
   val right : t -> int -> t
   val slice : ?first:int -> ?last:int -> t -> t
-  val sub : t -> start:int -> len:int -> t
+  val sub : t -> first:int -> len:int -> t
 
   val int_of_kmer : t -> int
   val kmer_compos : k:int -> t -> int array

@@ -4,7 +4,7 @@ module type Seq_sig = sig
   type t
   val length : t -> int
   val of_string : string -> t
-  val sub : t -> start:int -> len:int -> t
+  val sub : t -> first:int -> len:int -> t
   val to_string : t -> string
 end
 
@@ -64,7 +64,7 @@ module Make (Seq : Seq_sig) = struct
           | 0 -> ()
           | n ->
             let len = if n > 80 then 80 else n in
-            String.println ch Seq.(to_string (sub seq ~start:(i * 80) ~len));
+            String.println ch Seq.(to_string (sub seq ~first:(i * 80) ~len));
             loop (i + 1) (n - len) in
         loop 0 (Seq.length seq)
       )
