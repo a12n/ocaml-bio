@@ -284,6 +284,11 @@ let gc_skew s =
   done;
   ans
 
+(*$= gc_skew
+  (gc_skew (of_string "CATGGGCATCGGCCATACGCC")) \
+  [|0; -1; -1; -1; 0; 1; 2; 1; 1; 1; 0; 1; 2; 1; 0; 0; 0; 0; -1; 0; -1; -2|]
+*)
+
 let num_trans =
   fold_left2 Nt.(fun n si ti ->
       match si, ti with
