@@ -119,6 +119,26 @@ module Make (Elt : Elt_sig) = struct
       ) (kmers ~k s);
     ans
 
+  (** All distinct k-mers forming (l, t)-clumps in the sequence. *)
+  let kmer_clumps ~k ~l ~t s =
+    let ans = Hashtbl.create k in
+    let count = Hashtbl.create l in
+    let incr_count kmer n =
+      if n + 1 >= t then
+        Hashtbl.replace ans kmer ();
+      n + 1 in
+    Enum.iter (fun i ->
+        let kmer = sub s ~first:i ~len:k in
+        Hashtbl.modify_def 0 kmer (incr_count kmer) count
+      ) Enum.(0 -- (l - k));
+    Enum.iter (fun i ->
+        let kmer = sub s ~first:(i - 1) ~len:k in
+        Hashtbl.modify kmer Int.pred count;
+        let kmer = sub s ~first:(i + l - k) ~len:k in
+        Hashtbl.modify_def 0 kmer (incr_count kmer) count;
+      ) Enum.(1 -- (length s - l));
+    Hashtbl.keys ans
+
 
   let fold_left f = String.fold_left (fun ans c -> f ans (Elt.of_char c))
 

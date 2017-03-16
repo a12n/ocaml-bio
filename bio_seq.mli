@@ -44,6 +44,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val sub : t -> first:int -> len:int -> t
 
   val int_of_kmer : t -> int
+  val kmer_clumps : k:int -> l:int -> t:int -> t -> t Enum.t
   val kmer_compos : k:int -> t -> int array
   val kmer_of_int : k:int -> int -> t
   val kmers : k:int -> t -> t Enum.t
