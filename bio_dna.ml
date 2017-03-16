@@ -265,13 +265,13 @@ let gc_content s =
   | n -> float_of_int Nt.(count G s + count C s) /.
          float_of_int n
 
-let gc_prob gc s = Enum.fold ( *.) 1.0 (Enum.map (Nt.gc_prob gc) (enum s))
-
 (*$T gc_content
   Batteries.Float.approx_equal (gc_content (of_string "att")) 0.0
   Batteries.Float.approx_equal (gc_content (of_string "ccg")) 1.0
   Batteries.Float.approx_equal (gc_content (of_string "gattaca")) (2.0 /. 7.0)
 *)
+
+let gc_prob gc s = Enum.fold ( *.) 1.0 (Enum.map (Nt.gc_prob gc) (enum s))
 
 let gc_skew s =
   let n = length s in
