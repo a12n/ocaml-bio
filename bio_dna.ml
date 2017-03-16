@@ -273,6 +273,17 @@ let gc_prob gc s = Enum.fold ( *.) 1.0 (Enum.map (Nt.gc_prob gc) (enum s))
   Batteries.Float.approx_equal (gc_content (of_string "gattaca")) (2.0 /. 7.0)
 *)
 
+let gc_skew s =
+  let n = length s in
+  let ans = Array.make (n + 1) 0 in
+  for i = 1 to n do
+    match get s (i - 1) with
+    | Nt.C -> ans.(i) <- ans.(i - 1) - 1
+    | Nt.G -> ans.(i) <- ans.(i - 1) + 1
+    | Nt.A | Nt.T -> ans.(i) <- ans.(i - 1)
+  done;
+  ans
+
 let num_trans =
   fold_left2 Nt.(fun n si ti ->
       match si, ti with
