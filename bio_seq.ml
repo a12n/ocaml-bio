@@ -48,8 +48,8 @@ module Make (Elt : Elt_sig) = struct
       )
 
   let find_sub ?(first=0) s ~sub =
-    (* TODO: handle first *)
-    String.find_all s sub
+    (* TODO: really handle first *)
+    String.find_all s sub |> Enum.filter ((<=) first)
 
   let get seq i = Elt.of_char (String.get seq i)
 
