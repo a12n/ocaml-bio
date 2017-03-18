@@ -48,6 +48,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val kmer_compos : k:int -> t -> int array
   val kmer_of_int : k:int -> int -> t
   val kmers : k:int -> t -> t Enum.t
+  val num_kmers : k:int -> int
 
   val count : Elt.t -> t -> int
 
