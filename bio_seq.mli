@@ -56,6 +56,8 @@ module Make : functor (Elt : Elt_sig) -> sig
   val hamm_dist : t -> t -> int
   val p_dist : t -> t -> float
 
+  val neighbors : int -> t -> t Enum.t
+
   val lcs : t -> t -> t
   val scs : t -> t -> t
 
