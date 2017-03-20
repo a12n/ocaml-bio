@@ -47,9 +47,6 @@ module Make (Elt : Elt_sig) = struct
         | exception Not_found -> raise Enum.No_more_elements
       )
 
-  let find_sub ?(first=0) s ~sub =
-    (* TODO: really handle first *)
-    String.find_all s sub |> Enum.filter ((<=) first)
 
   let get seq i = Elt.of_char (String.get seq i)
 
@@ -205,6 +202,17 @@ module Make (Elt : Elt_sig) = struct
         float_of_int n
       else 0.0
     else invalid_arg "length mismatch"
+
+
+  let find_sub ?(first=0) ?(dist=0) s ~sub =
+    if dist = 0 then
+      (* TODO: really handle first *)
+      String.find_all s sub |> Enum.filter ((<=) first)
+    else
+      let m = length sub in
+      Enum.filter (fun i ->
+          hamm_dist (String.sub s i m) sub <= dist
+        ) Enum.(first -- (length s - m - first))
 
 
   (** All neighbours of sequence [s] within Hamming distance of [d]

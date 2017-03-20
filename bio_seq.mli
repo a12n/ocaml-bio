@@ -31,7 +31,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val compare : t -> t -> int
   val delete : t -> sub:t -> t
   val find_elt : ?first:int -> t -> Elt.t -> int Enum.t
-  val find_sub : ?first:int -> t -> sub:t -> int Enum.t
+  val find_sub : ?first:int -> ?dist:int -> t -> sub:t -> int Enum.t
   val get : t -> int -> Elt.t
   val is_empty : t -> bool
   val left : t -> int -> t
