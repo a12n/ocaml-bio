@@ -217,7 +217,7 @@ module Make (Elt : Elt_sig) = struct
 
   (** All neighbours of sequence [s] within Hamming distance of [d]
       from [s]. *)
-  let neighbors d s =
+  let neighbors ~dist s =
     let basic () =
       Set.of_array (Array.init Elt.n String.(of_char % Elt.(to_char % of_int))) in
     let rec aux s =
@@ -225,14 +225,14 @@ module Make (Elt : Elt_sig) = struct
       if n > 1 then
         let suffix = right s (n - 1) in
         Set.fold (fun t ans ->
-            if hamm_dist suffix t < d then
+            if hamm_dist suffix t < dist then
               Set.fold (fun prefix ans ->
                   Set.add (prefix ^ t) ans
                 ) (basic ()) ans
             else Set.add (left s 1 ^ t) ans
           ) (aux suffix) Set.empty
       else basic () in
-    if d > 0 then
+    if dist > 0 then
       aux s
     else Set.singleton s
 
