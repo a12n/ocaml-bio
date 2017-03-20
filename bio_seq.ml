@@ -153,7 +153,7 @@ module Make (Elt : Elt_sig) = struct
   let map f = String.map Elt.(to_char % f % of_char)
 
 
-  let count elt seq =
+  let count_elt elt seq =
     let c = Elt.to_char elt in
     let ans = ref 0 in
     for i = 0 to length seq - 1 do

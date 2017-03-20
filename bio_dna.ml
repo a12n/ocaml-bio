@@ -173,15 +173,15 @@ include Bio_seq.Make (Nt)
   [of_string "AAA"; of_string "CAG"; of_string "CCA"; of_string "CAT"; of_string "GCC"; of_string "TTC"]
 *)
 
-(*$= count
-  (count Nt.A (of_string "")) 0
-  (count Nt.C (of_string "")) 0
-  (count Nt.G (of_string "")) 0
-  (count Nt.T (of_string "")) 0
-  (count Nt.A (of_string "gattaca")) 3
-  (count Nt.C (of_string "gattaca")) 1
-  (count Nt.G (of_string "gattaca")) 1
-  (count Nt.T (of_string "gattaca")) 2
+(*$= count_elt
+  (count_elt Nt.A (of_string "")) 0
+  (count_elt Nt.C (of_string "")) 0
+  (count_elt Nt.G (of_string "")) 0
+  (count_elt Nt.T (of_string "")) 0
+  (count_elt Nt.A (of_string "gattaca")) 3
+  (count_elt Nt.C (of_string "gattaca")) 1
+  (count_elt Nt.G (of_string "gattaca")) 1
+  (count_elt Nt.T (of_string "gattaca")) 2
 *)
 
 (*$= edit_dist
@@ -262,7 +262,7 @@ let comp = map Nt.comp
 let gc_content s =
   match length s with
   | 0 -> invalid_arg "Dna.gc_content"
-  | n -> float_of_int Nt.(count G s + count C s) /.
+  | n -> float_of_int Nt.(count_elt G s + count_elt C s) /.
          float_of_int n
 
 (*$T gc_content
@@ -441,7 +441,7 @@ module Ambig = struct
   let gc_content s =
     match length s with
     | 0 -> invalid_arg "Dna.Ambig.gc_content"
-    | n -> float_of_int (count Nt.G s + count Nt.C s + count Nt.S s) /.
+    | n -> float_of_int (count_elt Nt.G s + count_elt Nt.C s + count_elt Nt.S s) /.
            float_of_int n
 
   let rev_comp = rev % comp

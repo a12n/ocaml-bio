@@ -50,7 +50,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val kmers : k:int -> t -> t Enum.t
   val num_kmers : k:int -> int
 
-  val count : Elt.t -> t -> int
+  val count_elt : Elt.t -> t -> int
   val count_sub : ?dist:int -> sub:t -> t -> int
 
   val edit_dist : t -> t -> int
