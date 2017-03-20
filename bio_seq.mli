@@ -51,6 +51,7 @@ module Make : functor (Elt : Elt_sig) -> sig
   val num_kmers : k:int -> int
 
   val count : Elt.t -> t -> int
+  val count_sub : ?dist:int -> sub:t -> t -> int
 
   val edit_dist : t -> t -> int
   val hamm_dist : t -> t -> int

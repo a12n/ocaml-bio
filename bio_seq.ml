@@ -214,6 +214,8 @@ module Make (Elt : Elt_sig) = struct
           hamm_dist (String.sub s i m) sub <= dist
         ) Enum.(first -- (length s - m - first))
 
+  let count_sub ?dist ~sub s = Enum.count (find_sub ?dist s ~sub)
+
 
   (** All neighbours of sequence [s] within Hamming distance of [d]
       from [s]. *)
