@@ -209,28 +209,24 @@ module Make (Elt : Elt_sig) = struct
 
   (** All neighbours of sequence [s] within Hamming distance of [d]
       from [s]. *)
-  let rec neighbors d s =
-    if d = 0 then
-      Enum.singleton s
-    else
-      let m = length s in
-      let elts =
-        Enum.map (String.of_char % Elt.(to_char % of_int))
-          Enum.(0 --^ Elt.n) in
-      if m = 1 then
-        elts
-      else
-        let suffix = right s (m - 1) in
-        let ans = Hashtbl.create m in (* FIXME *)
-        Enum.iter (fun sub ->
-            if hamm_dist suffix sub < d then
-              Enum.iter (fun first ->
-                  Hashtbl.replace ans (first ^ sub) ()
-                ) elts
-            else
-              Hashtbl.replace ans (left s 1 ^ sub) ()
-          ) (neighbors d suffix);
-        Hashtbl.keys ans
+  let neighbors d s =
+    let basic () =
+      Set.of_array (Array.init Elt.n String.(of_char % Elt.(to_char % of_int))) in
+    let rec aux s =
+      let n = length s in
+      if n > 1 then
+        let suffix = right s (n - 1) in
+        Set.fold (fun t ans ->
+            if hamm_dist suffix t < d then
+              Set.fold (fun prefix ans ->
+                  Set.add (prefix ^ t) ans
+                ) (basic ()) ans
+            else Set.add (left s 1 ^ t) ans
+          ) (aux suffix) Set.empty
+      else basic () in
+    if d > 0 then
+      aux s
+    else Set.singleton s
 
 
   let lcs s t =
