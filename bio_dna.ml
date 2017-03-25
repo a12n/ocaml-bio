@@ -222,11 +222,11 @@ include Bio_seq.Make (Nt)
 (*$< Pfm *)
 
 (*$= consensus
-  (consensus (from_list [of_string ""])) (of_string "")
-  (consensus (from_list [of_string "ATG"])) (of_string "ATG")
-  (consensus (from_list (List.map of_string \
+  (consensus (make (Batteries.List.enum [of_string ""]))) (of_string "")
+  (consensus (make (Batteries.List.enum [of_string "ATG"]))) (of_string "ATG")
+  (consensus (make (Batteries.List.enum (Batteries.List.map of_string \
   ["ATCCAGCT"; "GGGCAACT"; "ATGGATCT"; "AAGCAACC"; \
-  "TTGGAACT"; "ATGCCATT"; "ATGGCACT"]))) (of_string "ATGCAACT")
+  "TTGGAACT"; "ATGCCATT"; "ATGGCACT"])))) (of_string "ATGCAACT")
 *)
 
 (*$>*)

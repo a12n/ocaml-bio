@@ -294,21 +294,26 @@ module Make (Elt : Elt_sig) = struct
   let print_quoted = String.print_quoted
 
 
+  module Profile = struct
+    let length pxm = Array.(length pxm.(0))
+
+    let consensus pxm =
+      let k = length pxm in
+      Enum.init k (fun j ->
+          Enum.init Elt.n (fun i -> pxm.(i).(j), i) |>
+          Enum.reduce max |> Tuple2.second |> Elt.of_int
+        ) |> of_enum
+
+    let to_array pxm = Array.(map copy pxm)
+  end
+
   module Pfm = struct
     type t = int array array
 
-    let consensus pfm =
-      let n = Array.length pfm.(0) in
-      Enum.init n (fun j ->
-          let k = ref 0 in
-          for i = 1 to Elt.n - 1 do
-            if pfm.(i).(j) > pfm.(!k).(j) then k := i
-          done;
-          Elt.of_int !k
-        ) |> of_enum
+    let consensus = Profile.consensus
 
-    let from_enum enum =
-      let n = match Enum.peek enum with
+    let make seqs =
+      let n = match Enum.peek seqs with
         | Some s0 -> length s0
         | None -> invalid_arg "empty enum of sequences" in
       let ans = Array.make_matrix Elt.n n 0 in
@@ -319,12 +324,14 @@ module Make (Elt : Elt_sig) = struct
               let i = Elt.to_int elt in
               ans.(i).(j) <- ans.(i).(j) + 1
             ) t
-        ) enum;
+        ) seqs;
       ans
 
-    let from_array = from_enum % Array.enum
+    let length = Profile.length
 
-    let from_list = from_enum % List.enum
+    let num_seqs pfm = Enum.(sum (init Elt.n (fun i -> pfm.(i).(0))))
+
+    let to_array = Profile.to_array
   end
 
 
