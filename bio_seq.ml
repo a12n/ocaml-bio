@@ -334,6 +334,30 @@ module Make (Elt : Elt_sig) = struct
     let to_array = Profile.to_array
   end
 
+  module Ppm = struct
+    type t = float array array
+
+    let consensus = Profile.consensus
+
+    let length = Profile.length
+
+    let of_pfm pfm =
+      let k = Pfm.length pfm in
+      let n = Pfm.num_seqs pfm in
+      Array.init Elt.n (fun i ->
+          Array.init k (fun j ->
+              float_of_int pfm.(i).(j) /. float_of_int n
+            )
+        )
+
+    let prob ppm s =
+      enum s |> Enum.mapi (fun i elt ->
+          ppm.(Elt.to_int elt).(i)
+        ) |> Enum.reduce ( *. )
+
+    let to_array = Profile.to_array
+  end
+
 
   module Align = struct
     module Scoring = struct
