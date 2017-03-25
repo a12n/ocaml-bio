@@ -71,7 +71,10 @@ module Make : functor (Elt : Elt_sig) -> sig
     type t
 
     val consensus : t -> seq
+    val length : t -> int
     val make : seq Enum.t -> t
+    val num_seqs : t -> int
+    val to_array : t -> int array array
   end
 
   module Align : sig
