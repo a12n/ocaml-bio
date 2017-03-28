@@ -68,24 +68,22 @@ module Make : functor (Elt : Elt_sig) -> sig
 
   (** Position frequency matrix. *)
   module Pfm : sig
-    type t
+    type t = int array array
 
     val consensus : t -> seq
     val length : t -> int
     val make : seq Enum.t -> t
     val num_seqs : t -> int
-    val to_array : t -> int array array
   end
 
   (** Position probability matrix. *)
   module Ppm : sig
-    type t
+    type t = float array array
 
     val consensus : t -> seq
     val length : t -> int
     val of_pfm : Pfm.t -> t
     val prob : t -> seq -> float
-    val to_array : t -> float array array
   end
 
   module Align : sig

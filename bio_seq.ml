@@ -303,8 +303,6 @@ module Make (Elt : Elt_sig) = struct
           Enum.init Elt.n (fun i -> pxm.(i).(j), i) |>
           Enum.reduce max |> Tuple2.second |> Elt.of_int
         ) |> of_enum
-
-    let to_array pxm = Array.(map copy pxm)
   end
 
   module Pfm = struct
@@ -330,8 +328,6 @@ module Make (Elt : Elt_sig) = struct
     let length = Profile.length
 
     let num_seqs pfm = Enum.(sum (init Elt.n (fun i -> pfm.(i).(0))))
-
-    let to_array = Profile.to_array
   end
 
   module Ppm = struct
@@ -354,8 +350,6 @@ module Make (Elt : Elt_sig) = struct
       enum s |> Enum.mapi (fun i elt ->
           ppm.(Elt.to_int elt).(i)
         ) |> Enum.reduce ( *. )
-
-    let to_array = Profile.to_array
   end
 
 
