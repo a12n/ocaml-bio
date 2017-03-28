@@ -82,6 +82,7 @@ module Make : functor (Elt : Elt_sig) -> sig
 
     val consensus : t -> seq
     val length : t -> int
+    val most_prob : t -> seq Enum.t -> seq
     val of_pfm : Pfm.t -> t
     val prob : t -> seq -> float
   end

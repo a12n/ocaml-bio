@@ -350,6 +350,11 @@ module Make (Elt : Elt_sig) = struct
       enum s |> Enum.mapi (fun i elt ->
           ppm.(Elt.to_int elt).(i)
         ) |> Enum.reduce ( *. )
+
+    (** Profile-most probable sequence in a set of sequences. *)
+    let most_prob ppm seqs =
+      Enum.map (fun s -> prob ppm s, s) seqs |>
+      Enum.reduce max |> Tuple2.second
   end
 
 
