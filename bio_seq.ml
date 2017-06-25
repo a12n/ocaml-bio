@@ -216,6 +216,9 @@ module Make (Elt : Elt_sig) = struct
 
   let count_sub ?dist ~sub s = Enum.count (find_sub ?dist s ~sub)
 
+  let exists_sub ?first ?dist s ~sub =
+    not (Enum.is_empty (find_sub ?first ?dist s ~sub))
+
 
   (** All neighbours of sequence [s] within Hamming distance of [d]
       from [s]. *)
