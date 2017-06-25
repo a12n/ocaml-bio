@@ -108,6 +108,8 @@ module Make (Elt : Elt_sig) = struct
 
   let num_kmers ~k = Int.pow Elt.n k
 
+  let all_kmers ~k = Enum.init (num_kmers ~k) (kmer_of_int ~k)
+
   let kmer_compos ~k s =
     let ans = Array.make (num_kmers ~k) 0 in
     Enum.iter (fun t ->

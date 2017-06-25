@@ -1,5 +1,5 @@
 description = "Library of bionformatics routines for Rosalind problems"
-version = "0.38.0"
+version = "0.39.0"
 requires = "batteries"
 archive(byte) = "bio.cma"
 archive(native) = "bio.cmxa"
