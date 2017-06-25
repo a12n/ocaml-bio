@@ -169,6 +169,17 @@ include Bio_seq.Make (Nt)
   (kmer_compos ~k:2 (of_string "gattaca")) [|0; 1; 0; 1; 1; 0; 0; 0; 1; 0; 0; 0; 1; 0; 0; 1|]
 *)
 
+(*$= all_kmers
+  (Batteries.List.of_enum (all_kmers ~k:0)) (List.map of_string [""])
+  (Batteries.List.of_enum (all_kmers ~k:1)) (List.map of_string ["A"; "C"; "G"; "T"])
+  (Batteries.List.of_enum (all_kmers ~k:2)) (List.map of_string \
+  [ "AA"; "AC"; "AG"; "AT"; \
+    "CA"; "CC"; "CG"; "CT"; \
+    "GA"; "GC"; "GG"; "GT"; \
+    "TA"; "TC"; "TG"; "TT" \
+  ])
+*)
+
 (* TODO: compare to sorted result *)
 (*$= kmer_clumps
   (Batteries.List.of_enum (kmer_clumps ~k:2 ~l:4 ~t:2 (of_string "AAAACGTCGAAAAA"))) [of_string "AA"]
