@@ -87,6 +87,13 @@ include Bio_seq.Make (Nt)
   (Batteries.List.of_enum (find_elt (of_string "gattaca") ~first:4 Nt.T)) []
 *)
 
+(*$= exists_sub
+  (exists_sub (of_string "") (of_string "atg")) false
+  (exists_sub (of_string "gattaca") (of_string "ac")) true
+  (exists_sub ~dist:1 ~sub:(of_string "ggg") (of_string "gattaca")) false
+  (exists_sub ~dist:1 ~sub:(of_string "tca") (of_string "gattaca")) true
+*)
+
 (*$T find_sub
   (Batteries.List.of_enum (find_sub (of_string "") (of_string "atg"))) = []
   (Batteries.List.of_enum (find_sub (of_string "gattaca") (of_string "ac"))) = [4]
